@@ -1,17 +1,15 @@
 <template>
   <div class="msg-box">
+    <div class="title" v-if="props.bItem.title">{{props.bItem.title}}</div>
     <div class="msg">{{ props.bItem.msg }}</div>
     <div class="btn-box" v-if="props.bItem.btn">
-      <van-button
-          size="mini"
-          plain
-          type="primary"
-          hairline
+      <button
           @click="clickAction(btnItem)"
+          :class="btnItem.type"
           v-for="(btnItem,btnIndex) in props.bItem.btn"
           :key="btnIndex">
         {{ btnItem.text }}
-      </van-button>
+      </button>
     </div>
   </div>
 </template>
@@ -64,9 +62,7 @@ const clickAction = (btnItem: { reply: never; }) => {
   if (btnItem.reply) {
     console.log('回复', btnItem.reply);
     emits('reply', btnItem.reply);
-    if (btnItem.reply) {
-      doWay(btnItem.reply);
-    }
+    doWay(btnItem.reply);
   }
 };
 
@@ -74,14 +70,25 @@ const clickAction = (btnItem: { reply: never; }) => {
 
 <style lang="less" scoped>
 .msg-box {
-  border-radius: 5%;
+  border-radius: 0 2vw 2vw 2vw;
   background-color: #fff;
-  //min-height: 15vh;
-  font-size: 0.8rem;
+  //min-height: 3vh;
+  font-size: 0.7rem;
   text-align: center;
   margin: 0.2rem;
-  padding: 0.2rem 1rem;
+  //padding: 0.2rem 1rem;
   position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    border-radius: 0 2vw 0 0;
+    padding: 0.2rem 0;
+    font-size: 0.72rem;
+    color: #fff;
+    line-height: 1.5;
+    background: linear-gradient(to right, rgba(35, 107, 255, 0.5), rgba(192, 21, 217, 0.5));
+  }
 
   //&:before{
   //  content: '';
@@ -104,12 +111,29 @@ const clickAction = (btnItem: { reply: never; }) => {
   //  border-color:  #fff transparent transparent;
   //}
   .msg {
-
+    padding: 0.2rem 1rem;
   }
 
   .btn-box {
-    .van-button {
-      margin: 0 0.5rem;
+    padding: 0.2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    button {
+      margin: 0.2rem 0.5rem;
+      border-radius: 50vw;
+      cursor: pointer;
+      font-size: 0.72rem;
+      line-height: 1.8;
+      &.primary{
+        background: linear-gradient(to right, rgba(35, 107, 255, 1), rgba(192, 21, 217, 1));
+        color: #fff;
+        border: none;
+      }
+      &.general{
+        background: #fff;
+        color: rgba(35, 108, 255, 1);
+        border: 0.02rem solid rgba(35, 107, 255, 1);
+      }
     }
 
   }

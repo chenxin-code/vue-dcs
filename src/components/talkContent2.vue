@@ -24,8 +24,11 @@ import talkContent2Son from "./talkContent2Son.vue";
 //单分支
 import singleBranch from '@/singleBranch.ts';
 
-const reply = (reply: { vdid: string; msg: string; btn: never; }) => {
+const reply = (reply: { title: string; vdid: string; msg: string; btn: never; }) => {
   let temp = {msg: reply.msg, vdid: reply.vdid};
+  if (reply.title) {
+    temp = Object.assign(temp, {title: reply.title});
+  }
   if (reply.btn) {
     temp = Object.assign(temp, {btn: reply.btn});
   }
@@ -135,7 +138,7 @@ defineExpose({
   right: 0;
   width: 50vw;
   height: 100vh;
-  background-color: #62BBF9;
+  //background-color: #62BBF9;
   z-index: 3000;
 
   .talk-box {

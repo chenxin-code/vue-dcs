@@ -484,7 +484,7 @@ onUnmounted(() => {
       left: 0%;
       width: 100vw;
       height: 100vh;
-      background-color: #62BBF9;
+      background: url(./assets/img/appBackground.png);
 
       #c3 {
         position: absolute;
