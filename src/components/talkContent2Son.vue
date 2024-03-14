@@ -45,7 +45,6 @@ watch(() => props.curBranch, () => {
 
 const emits = defineEmits([
   'sendtomedia',
-  'gotoBranch',
   'reply',
   'localPlay',
 ]);
@@ -61,11 +60,8 @@ const doWay = (o: { msg: string; vdid: string; }) => {
   }
 };
 
-const clickAction = (btnItem: { gotoBranch: number; reply: never; }) => {
-  if (btnItem.gotoBranch) {
-    console.log('去新分支', btnItem.gotoBranch);
-    emits('gotoBranch', btnItem.gotoBranch);
-  } else if (btnItem.reply) {
+const clickAction = (btnItem: { reply: never; }) => {
+  if (btnItem.reply) {
     console.log('回复', btnItem.reply);
     emits('reply', btnItem.reply);
     if (btnItem.reply) {

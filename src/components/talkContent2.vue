@@ -7,7 +7,6 @@
           :key="bIndex"
           @sendtomedia="sendtomedia"
           @localPlay="localPlay"
-          @gotoBranch="gotoBranch"
           @reply="reply"
           :fluentWelcome="props.fluentWelcome"
           :curBranch="curBranch">
@@ -23,39 +22,26 @@ import talkContent2Son from "./talkContent2Son.vue";
 //多分支
 //import branches from '@/branches.ts';
 //单分支
-import branches from '@/singleBranch.ts';
+import singleBranch from '@/singleBranch.ts';
 
-//import {store} from "@/store/store";
-
-const gotoBranch = (index: number) => {
-  curBranch.value = branches[index];
-};
-
-const reply = (reply: { index: number; vdid: string; msg: string; btn: never; }) => {
-  if (curBranch.value[reply.index]) {
-    curBranch.value[reply.index].msg = reply.msg;
-    if (reply.btn) {
-      curBranch.value[reply.index].btn = reply.btn;
-    }
+const reply = (reply: { vdid: string; msg: string; btn: never; }) => {
+  let temp = {msg: reply.msg, vdid: reply.vdid};
+  if (reply.btn) {
+    temp = Object.assign(temp, {btn: reply.btn});
+  }
+  let filterArr = curBranch.value.filter((item) => {
+    return item.vdid === temp.vdid;
+  });
+  if (filterArr.length === 0) {
+    curBranch.value.push(temp);
   } else {
-    let temp = {msg: reply.msg, vdid: reply.vdid};
-    if (reply.btn) {
-      temp = Object.assign(temp, {btn: reply.btn});
-    }
-    let filterArr = curBranch.value.filter((item) => {
-      return item.vdid === temp.vdid;
-    });
-    if (filterArr.length === 0) {
-      curBranch.value.push(temp);
-    } else {
-      console.log('需要高亮的消息', filterArr);
-    }
+    console.log('需要高亮的消息', filterArr);
   }
   console.log('curBranch', curBranch.value);
 };
 
 //当前对话分支
-const curBranch = ref(branches[0]);
+const curBranch = ref(singleBranch[0]);
 
 interface Inprops {
   fluentWelcome: boolean;
