@@ -9,7 +9,9 @@
           @localPlay="localPlay"
           @reply="reply"
           :fluentWelcome="props.fluentWelcome"
-          :curBranch="curBranch">
+          :curBranch="curBranch"
+          :isShake="findIndex === bIndex"
+      >
       </msg>
     </div>
   </div>
@@ -18,14 +20,11 @@
 <script lang="ts" setup>
 import {ref, defineEmits, nextTick, defineProps, watch, defineExpose} from "vue";
 import msg from "./msg.vue";
-
-//多分支
-//import branches from '@/branches.ts';
-//单分支
-import singleBranch from '@/singleBranch.ts';
+//import branches from '@/branches.ts';//多分支
+import singleBranch from '@/singleBranch.ts';//单分支
 
 const talkBox = ref();
-
+const findIndex = ref(null);//实际上最多找到1个
 const reply = (reply: { title: string; vdid: string; msg: string; btn: never; }) => {
   let temp = {msg: reply.msg, vdid: reply.vdid};
   if (reply.title) {
@@ -34,20 +33,25 @@ const reply = (reply: { title: string; vdid: string; msg: string; btn: never; })
   if (reply.btn) {
     temp = Object.assign(temp, {btn: reply.btn});
   }
-  let filterArr = curBranch.value.filter((item) => {
-    return item.vdid === temp.vdid;
+  curBranch.value.map((item, index) => {
+    if (item.vdid === temp.vdid) {
+      findIndex.value = index;
+    }
   });
-  if (filterArr.length === 0) {
+  console.log('findIndex', findIndex.value);
+  if (findIndex.value) {
+    console.log('需要抖动的消息', curBranch.value[findIndex.value]);
+  } else {
     curBranch.value.push(temp);
     nextTick(() => {
-      //滚动条自动到底部
       console.log('滚动条自动到底部');
       talkBox.value.scrollTop = talkBox.value.scrollHeight;
     });
-  } else {
-    console.log('需要高亮的消息', filterArr);
   }
   console.log('curBranch', curBranch.value);
+  nextTick(() => {
+    findIndex.value = null;
+  });
 };
 
 //当前对话分支

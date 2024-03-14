@@ -1,6 +1,6 @@
 <template>
-  <div class="msg-box">
-    <div class="title" v-if="props.bItem.title">{{props.bItem.title}}</div>
+  <div class="msg-box" :class="{op: op}">
+    <div class="title" v-if="props.bItem.title">{{ props.bItem.title }}</div>
     <div class="msg">{{ props.bItem.msg }}</div>
     <div class="btn-box" v-if="props.bItem.btn">
       <button
@@ -15,16 +15,33 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, defineEmits, defineProps, onMounted, watch, nextTick} from "vue";
+import {ref, defineEmits, defineProps, onMounted, watch, nextTick, defineExpose} from "vue";
 import {store} from "@/store/store";
+
+const op = ref(false);
+setTimeout(() => {
+  op.value = true;
+}, 0);
 
 interface Inprops {
   bItem: never;
   fluentWelcome: boolean;
   curBranch: never;
+  isShake: boolean;
 }
 
 const props = defineProps<Inprops>();
+
+watch(
+    () => props.isShake,
+    (val) => {
+      console.log('子组件的isShake', val);
+      if (val) {
+        shakeMsg();
+      }
+    },
+    {immediate: true}
+);
 
 watch(
     () => props.fluentWelcome,
@@ -66,6 +83,10 @@ const clickAction = (btnItem: { reply: never; }) => {
   }
 };
 
+const shakeMsg = () => {
+  console.log('哈哈可以抖动了');
+};
+
 </script>
 
 <style lang="less" scoped>
@@ -80,6 +101,12 @@ const clickAction = (btnItem: { reply: never; }) => {
   position: relative;
   display: flex;
   flex-direction: column;
+  transition: opacity 1.5s ease;
+  opacity: 0;
+
+  &.op {
+    opacity: 1;
+  }
 
   .title {
     border-radius: 0 2vw 0 0;
@@ -118,18 +145,21 @@ const clickAction = (btnItem: { reply: never; }) => {
     padding: 0.2rem 1rem;
     display: flex;
     flex-direction: column;
+
     button {
       margin: 0.2rem 0.5rem;
       border-radius: 50vw;
       cursor: pointer;
       font-size: 0.72rem;
       line-height: 1.8;
-      &.primary{
+
+      &.primary {
         background: linear-gradient(to right, rgba(35, 107, 255, 1), rgba(192, 21, 217, 1));
         color: #fff;
         border: none;
       }
-      &.general{
+
+      &.general {
         background: #fff;
         color: rgba(35, 108, 255, 1);
         border: 0.02rem solid rgba(35, 107, 255, 1);
