@@ -59,5 +59,8 @@ const store = {
   getplatformInfo(): any {
     return this.platformInfo;
   },
+
+  //线上 true 本地 false
+  online: false,
 };
 export { store };
