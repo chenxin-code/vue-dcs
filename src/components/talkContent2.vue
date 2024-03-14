@@ -41,7 +41,7 @@ const reply = (reply: { vdid: string; msg: string; btn: never; }) => {
 };
 
 //当前对话分支
-const curBranch = ref(singleBranch[0]);
+const curBranch = ref(singleBranch);
 
 interface Inprops {
   fluentWelcome: boolean;
