@@ -1,0 +1,115 @@
+#img-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  top: 0px;
+  position: fixed;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+#img-container .imgCall_close_icon {
+  border-radius: 50px;
+  position: fixed;
+  left: 50%;
+  margin-left: -25px;
+  bottom: 3%;
+  z-index: 3101;
+  overflow: visible;
+  cursor: pointer;
+  pointer-events: auto;
+  background: url("../../assets/img/close_black2.png") 100% 100% no-repeat;
+  width: 50px;
+  height: 50px;
+  background-color: #bbb;
+}
+
+#img-container #imgDiv {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#img-container img {
+  max-width: 60%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  position: absolute;
+  max-height: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  #img-container img {
+    max-width: 80%;
+    max-height: 100%;
+  }
+  #imglength-container img {
+    width: 80%;
+  }
+}
+
+#imglength-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  top: 0px;
+  position: absolute;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+#imglength-container .imgCall_close_icon {
+  border-radius: 50px;
+  position: fixed;
+  left: 50%;
+  margin-left: -25px;
+  bottom: 3%;
+  z-index: 999;
+  overflow: visible;
+  cursor: pointer;
+  pointer-events: auto;
+  background: url("../../assets/img/close_black2.png") 0px 0px/50px 50px;
+  width: 50px;
+  height: 50px;
+  background-color: #bbb;
+}
+
+#imglength-container #imgDiv {
+  position: relative;
+  overflow-y: auto;
+  height: calc(100vh - 70px);
+}
+
+#imglength-container img {
+  width: 37.5%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+@media screen and (max-width: 600px) {
+  #imglength-container img {
+    width: 80%;
+  }
+}
+/*# sourceMappingURL=imgCall.css.map */

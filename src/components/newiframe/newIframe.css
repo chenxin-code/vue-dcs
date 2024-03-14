@@ -1,0 +1,221 @@
+
+#mycontainer{
+    width: 100%;
+    height: 100%;
+    /* max-height: 90vh; */
+    /* background-color:rgba(0,0,0,0.1); */
+    top: 0;
+    left: 0; 
+    z-index: 3; 
+    position: absolute;
+    text-align:center; 
+    z-index: 1002;
+}
+
+#new-container{}
+
+#dialogFrame{
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* height: 49.4791vw;
+    width: 90.10vw; */
+    border: 0;
+    width: 100%;
+    height: 100%;
+}
+.iframe-close-img{
+    border-radius: 50%;
+    position:fixed;
+    top: 0; 
+    right: 0;
+    overflow: visible;
+    cursor: pointer;
+    pointer-events: auto; 
+    display: block;
+    width: 2.084vw;
+    height: 2.084vw;
+    z-index: 4;
+}
+
+.newJsxIframe-close-img{
+    /* border-radius: 50%; */
+    position:fixed;
+    left: 0;
+    bottom: 3vw;
+    z-index: 4;
+    overflow: visible;
+    cursor: pointer;
+    pointer-events: auto; 
+    display: block;
+    width: 8vw;
+    object-fit: contain;
+    /* height: 2.084vw; */
+    
+}
+#loadContainer{
+    width: 3.4vw; 
+    height: 3.4vw;
+     background: #fff; 
+     padding: 0.156vw;
+     top: 50%; 
+     left: 50%; 
+     position: absolute; 
+     transform:translate(-50%, -50%);
+     /* background-color: red; */
+     display: flex;
+     /* flex-direction: row; */
+     /* flex-direction: column; */
+     flex-direction: row;
+     justify-content: space-around;
+     align-content: space-around;
+     flex-wrap: wrap;
+}
+
+.animation-item{
+    width: 1.5625vw;
+    height: 1.5625vw;
+    background: #e4f6ff;
+}
+.animation-item:nth-child(1){
+  /* flex: auto; */
+    order: 1;
+}
+.animation-item:nth-child(2){
+    /* flex: auto; */
+    order: 2;
+}
+
+.animation-item:nth-child(3){
+    /* flex: auto; */
+    order: 4;
+}
+ 
+.animation-item:nth-child(4){
+    /* flex: auto; */
+    order: 3;
+}
+
+.open-type-pciframe{
+    max-height: 90vh;
+    height: 49.4791vw;
+    width: 90.1vw;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    position: absolute;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    /* background-color: #fff; */
+    overflow: auto;
+    /* -webkit-overflow-scrolling:touch; */
+}
+.open-type-webiframe{
+    max-height: 90vh;
+    width: 90.13vw;
+    height: 156.53vw;
+    top: 50%; 
+    left: 50%; 
+    z-index: 3;
+    position: absolute;
+    text-align:center;
+    transform:translate(-50%, -50%);
+    /* background-color: #fff; */
+    overflow: auto;
+    /* -webkit-overflow-scrolling:touch; */
+}
+.opne-allscroll-iframe{
+    height: 100vh;
+    width:100vw;
+    z-index: 3;
+    position: absolute;
+    left:0;top:0;
+    /* background-color: #fff; */
+    /* -webkit-overflow-scrolling: touch; */
+}
+@media screen and (max-width: 600px){
+    #mycontainer{}
+    
+    #new-container{}
+    
+    #dialogFrame{
+        position: absolute;
+        left: 0;
+        top: 0;
+        /* height: 49.4791vw;
+        width: 90.10vw; */
+        border: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .iframe-close-img{
+        border-radius: 50%;
+        position:fixed;
+        top: 0; 
+        right: 0;
+        overflow: visible;
+        cursor: pointer;
+        pointer-events: auto; 
+        display: block;
+        width: 7.73vw;
+        height: 7.73vw;
+        z-index: 4;
+    }
+    .newJsxIframe-close-img{
+        /* border-radius: 50%; */
+        position:fixed;
+        left: 0;
+        bottom: 9vw;
+        z-index: 4;
+        overflow: visible;
+        cursor: pointer;
+        pointer-events: auto; 
+        display: block;
+        width: 20vw;
+        object-fit: contain;
+        
+    }
+    #loadContainer{
+        width: 18.67vw; 
+        height: 18.67vw;
+         background: #fff; 
+         padding: 0.156vw;
+         top: 50%; 
+         left: 50%; 
+         position: absolute; 
+         transform:translate(-50%, -50%);
+         /* background-color: red; */
+         display: flex;
+         /* flex-direction: row; */
+         /* flex-direction: column; */
+         flex-direction: row;
+         justify-content: space-around;
+         align-content: space-around;
+         flex-wrap: wrap;
+    }
+    
+    .animation-item{
+        width: 8vw;
+        height: 8vw;
+        background: #e4f6ff;
+    }
+    .animation-item:nth-child(1){
+      /* flex: auto; */
+        order: 1;
+    }
+    .animation-item:nth-child(2){
+        /* flex: auto; */
+        order: 2;
+    }
+    
+    .animation-item:nth-child(3){
+        /* flex: auto; */
+        order: 4;
+    }
+     
+    .animation-item:nth-child(4){
+        /* flex: auto; */
+        order: 3;
+    }
+    
+}
