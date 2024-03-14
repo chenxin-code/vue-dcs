@@ -1,6 +1,6 @@
 <template>
   <div class="bg">
-    <div class="talk-box">
+    <div class="talk-box" ref="talkBox">
       <msg
           :bItem="bItem"
           v-for="(bItem,bIndex) in curBranch"
@@ -16,13 +16,15 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, defineEmits, defineProps, watch, defineExpose} from "vue";
+import {ref, defineEmits, nextTick, defineProps, watch, defineExpose} from "vue";
 import msg from "./msg.vue";
 
 //多分支
 //import branches from '@/branches.ts';
 //单分支
 import singleBranch from '@/singleBranch.ts';
+
+const talkBox = ref();
 
 const reply = (reply: { title: string; vdid: string; msg: string; btn: never; }) => {
   let temp = {msg: reply.msg, vdid: reply.vdid};
@@ -37,6 +39,11 @@ const reply = (reply: { title: string; vdid: string; msg: string; btn: never; })
   });
   if (filterArr.length === 0) {
     curBranch.value.push(temp);
+    nextTick(() => {
+      //滚动条自动到底部
+      console.log('滚动条自动到底部');
+      talkBox.value.scrollTop = talkBox.value.scrollHeight;
+    });
   } else {
     console.log('需要高亮的消息', filterArr);
   }
