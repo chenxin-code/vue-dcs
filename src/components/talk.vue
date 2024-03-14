@@ -1,7 +1,7 @@
 <template>
   <div class="bg">
     <div class="talk-box">
-      <talkContent2Son
+      <msg
           :bItem="bItem"
           v-for="(bItem,bIndex) in curBranch"
           :key="bIndex"
@@ -10,14 +10,14 @@
           @reply="reply"
           :fluentWelcome="props.fluentWelcome"
           :curBranch="curBranch">
-      </talkContent2Son>
+      </msg>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import {ref, defineEmits, defineProps, watch, defineExpose} from "vue";
-import talkContent2Son from "./talkContent2Son.vue";
+import msg from "./msg.vue";
 
 //多分支
 //import branches from '@/branches.ts';

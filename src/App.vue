@@ -14,14 +14,14 @@
         <!-- 贴图至背景图上方 -->
         <canvas id="c3" :width="bodywidth" :height="bodyheight" :style="{height:canvasC3height+'px'}"></canvas>
         <!--        <gifbackground :questionforlogo="questionforlogo" :useName="useName"></gifbackground>-->
-        <talk-content2
+        <talk
             :fluentWelcome="addWelcomeConversation"
             :bodyheight="bodyheight"
             :bodywidth="bodywidth"
             @sendtomedia="sendchattomedia"
             @stopAllVideo="stopAllVideo"
-            ref="tc2"
-        ></talk-content2>
+            ref="talkRef"
+        ></talk>
       </div>
     </div>
     <!--本地视频-->
@@ -69,7 +69,7 @@
 <script lang="ts" setup>
 import {ref, onMounted, onUnmounted, nextTick, computed} from "vue";
 import talkContent from "@/components/talkContent.vue";
-import talkContent2 from "@/components/talkContent2.vue";
+import talk from "@/components/talk.vue";
 import localVideo from "@/components/localVideo.vue";
 //import historyTimeSelect from "@/components/historyTimeSelect.vue";
 import rightButtonBar from "@/components/rightButtonBar.vue";
@@ -116,9 +116,9 @@ const stopAllVideo = () => {
   lv.value.stopAllVideo();
 };
 
-const tc2 = ref();
+const talkRef = ref();
 const localPlay = (vdid: string) => {
-  tc2.value.localPlay(vdid);
+  talkRef.value.localPlay(vdid);
 };
 
 //请求后台打开推流
