@@ -1,5 +1,5 @@
 <template>
-  <div class="msg-box" :class="{op: op,shake: shake}">
+  <div class="msg-box" :class="{op: op,shake: shake}" ref="msgBox">
     <div class="title" v-if="props.bItem.title">{{ props.bItem.title }}</div>
     <div class="msg">{{ props.bItem.msg }}</div>
     <div class="btn-box" v-if="props.bItem.btn">
@@ -23,6 +23,7 @@ setTimeout(() => {
   op.value = true;
 }, 0);
 const shake = ref(false);
+const msgBox = ref();
 
 interface Inprops {
   bItem: never;
@@ -43,6 +44,8 @@ watch(
         setTimeout(() => {
           shake.value = false;
         }, 100);
+        console.log('滚动条至此', msgBox.value.offsetTop);
+        emits('scrollBarTo', msgBox.value.offsetTop);
       }
     },
     {immediate: true}
@@ -67,6 +70,7 @@ const emits = defineEmits([
   'sendtomedia',
   'reply',
   'localPlay',
+  'scrollBarTo',
 ]);
 
 const doWay = (o: { msg: string; vdid: string; }) => {

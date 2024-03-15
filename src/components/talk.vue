@@ -8,6 +8,7 @@
           @sendtomedia="sendtomedia"
           @localPlay="localPlay"
           @reply="reply"
+          @scrollBarTo="scrollBarTo"
           :fluentWelcome="props.fluentWelcome"
           :curBranch="curBranch"
           :isShake="findIndex === bIndex"
@@ -52,6 +53,11 @@ const reply = (reply: { title: string; vdid: string; msg: string; btn: never; })
   nextTick(() => {
     findIndex.value = null;
   });
+};
+
+//滚动条至此
+const scrollBarTo = (offsetTop: number) => {
+  talkBox.value.scrollTop = offsetTop;
 };
 
 //当前对话分支
