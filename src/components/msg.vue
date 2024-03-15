@@ -1,5 +1,5 @@
 <template>
-  <div class="msg-box" :class="{op: op}">
+  <div class="msg-box" :class="{op: op,shake: shake}">
     <div class="title" v-if="props.bItem.title">{{ props.bItem.title }}</div>
     <div class="msg">{{ props.bItem.msg }}</div>
     <div class="btn-box" v-if="props.bItem.btn">
@@ -22,6 +22,7 @@ const op = ref(false);
 setTimeout(() => {
   op.value = true;
 }, 0);
+const shake = ref(false);
 
 interface Inprops {
   bItem: never;
@@ -37,7 +38,11 @@ watch(
     (val) => {
       console.log('子组件的isShake', val);
       if (val) {
-        shakeMsg();
+        console.log('开始抖动');
+        shake.value = true;
+        setTimeout(() => {
+          shake.value = false;
+        }, 100);
       }
     },
     {immediate: true}
@@ -83,10 +88,6 @@ const clickAction = (btnItem: { reply: never; }) => {
   }
 };
 
-const shakeMsg = () => {
-  console.log('哈哈可以抖动了');
-};
-
 </script>
 
 <style lang="less" scoped>
@@ -106,6 +107,28 @@ const shakeMsg = () => {
 
   &.op {
     opacity: 1;
+  }
+
+  &.shake {
+    animation-name: shake;
+    animation-duration: 0.1s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: 3;
+    animation-direction: normal;
+  }
+
+  @keyframes shake {
+    0% {
+      margin-left: 0;
+      margin-right: 0.2rem;
+      margin-top: 0;
+    }
+    100% {
+      margin-left: 0.2rem;
+      margin-right: 0;
+      margin-top: 0.2rem;
+    }
   }
 
   .title {
