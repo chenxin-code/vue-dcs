@@ -29,6 +29,7 @@ export default [
                                                 {
                                                     text: '查看详情',
                                                     type: 'primary',
+                                                    popup: 'creditCard',
                                                 },
                                             ],
                                         },

@@ -71,6 +71,7 @@ const emits = defineEmits([
   'reply',
   'localPlay',
   'scrollBarTo',
+  'openPopup',
 ]);
 
 const doWay = (o: { msg: string; vdid: string; }) => {
@@ -84,11 +85,14 @@ const doWay = (o: { msg: string; vdid: string; }) => {
   }
 };
 
-const clickAction = (btnItem: { reply: never; }) => {
+const clickAction = (btnItem: { reply: { msg: string; vdid: string; }; popup: string; }) => {
   if (btnItem.reply) {
     console.log('回复', btnItem.reply);
     emits('reply', btnItem.reply);
     doWay(btnItem.reply);
+  }
+  if (btnItem.popup) {
+    emits('openPopup', btnItem.popup);
   }
 };
 

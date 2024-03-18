@@ -9,6 +9,7 @@
           @localPlay="localPlay"
           @reply="reply"
           @scrollBarTo="scrollBarTo"
+          @openPopup="openPopup"
           :fluentWelcome="props.fluentWelcome"
           :curBranch="curBranch"
           :isShake="findIndex === bIndex"
@@ -16,6 +17,11 @@
       </msg>
     </div>
   </div>
+  <!--信用卡弹出层-->
+  <creditCardPopup
+      @closePopup="showCreditCardPopup = false"
+      v-if="showCreditCardPopup"
+  ></creditCardPopup>
 </template>
 
 <script lang="ts" setup>
@@ -23,6 +29,7 @@ import {ref, defineEmits, nextTick, defineProps, watch, defineExpose} from "vue"
 import msg from "./msg.vue";
 //import branches from '@/branches.ts';//多分支
 import singleBranch from '@/singleBranch.ts';//单分支
+import creditCardPopup from "@/components/popup/creditCard.vue";
 
 const talkBox = ref();
 const findIndex = ref(null);//实际上最多找到1个
@@ -146,6 +153,13 @@ defineExpose({
   localPlay,
 });
 
+const showCreditCardPopup = ref(false);
+const openPopup = (popup: string) => {
+  console.log('popup类型', popup);
+  if (popup === 'creditCard') {
+    showCreditCardPopup.value = true;
+  }
+};
 </script>
 
 <style lang="less" scoped>
