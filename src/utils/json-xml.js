@@ -1,5 +1,5 @@
 // https://www.ylefu.com/json/91852.html
-export const jsonToXml = (json: string) => {
+export const jsonToXml = (json) => {
     const jsonObj = JSON.parse(json);
     let xml = '';
     for (const key in jsonObj) {
