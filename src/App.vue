@@ -5,7 +5,7 @@
         :fluentWelcome="addWelcomeConversation"
         @sendchattomedia="sendchattomedia"
         @interruptVoice="interruptVoice"
-        v-show="false"
+        v-if="store.online"
     ></talk-content>
     <div id="ttsa" v-show="ttasDomShow">
       <div class="canvasWindow" id="canvasWindow">

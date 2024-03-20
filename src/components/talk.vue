@@ -22,14 +22,86 @@
       @closePopup="showCreditCardPopup = false"
       v-if="showCreditCardPopup"
   ></creditCardPopup>
+  <init-info></init-info>
 </template>
 
 <script lang="ts" setup>
-import {ref, defineEmits, nextTick, defineProps, watch, defineExpose} from "vue";
+import {ref, defineEmits, onMounted, nextTick, defineProps, watch, defineExpose} from "vue";
 import msg from "./msg.vue";
 //import branches from '@/branches.ts';//多分支
 import singleBranch from '@/singleBranch.ts';//单分支
 import creditCardPopup from "@/components/popup/creditCard.vue";
+import httpszzt from "@/api/reqszzt";
+import {store} from "@/store/store";
+import initInfo from "@/components/initInfo.vue";
+import {jsonToXml, XMLToJSON, JSONToXML} from "@/utils/json-xml.js";
+
+
+onMounted(() => {
+  sessionStorage.setItem('sessionid', getRandomString(32));
+
+  setTimeout(() => {
+    httpszzt.postRobot(
+        store.platformInfo.requestHead +
+        store.platformInfo.requestDomain +
+        '/dwr/ask-robot.action?userId=' +
+        store.platformInfo.askplatform +
+        store.platformInfo.location +
+        '_' +
+        store.platformInfo.userId +
+        '&location=' +
+        store.platformInfo.location +
+        '&sessionId=' +
+        sessionStorage.getItem("sessionid") +
+        '&dstType=16&platform=' +
+        'platform06' +
+        '&question=' +
+        'myCreditCardExceeds300'
+    ).then((resp) => {
+      let getAnswer = getXMLNode({xmlStr: resp.data}, "Content");
+      console.log('getAnswer--->', getAnswer, XMLToJSON(getAnswer));
+    });
+  }, 2000);
+});
+
+const getXMLNode = (parm: any, type: string) => {
+  let str = parm.xmlStr;
+  //创建文档对象
+  let xmlDoc = new DOMParser().parseFromString(str, "text/xml");
+  let finds = xmlDoc.getElementsByTagName(type); //获取find节点
+  if (finds[0] && finds[0].textContent) {
+    return finds[0].textContent;
+  } else {
+    return false;
+  }
+};
+
+//获取随机长度字符串
+const _charStr =
+    "abacdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789";
+const RandomIndex = (min: any, max: any, i: any) => {
+  let index = Math.floor(Math.random() * (max - min + 1) + min),
+      numStart = _charStr.length - 10;
+  //如果字符串第一位是数字，则递归重新获取
+  if (i == 0 && index >= numStart) {
+    index = RandomIndex(min, max, i);
+  }
+  //返回最终索引值
+  return index;
+};
+const getRandomString = (len: number) => {
+  let min = 0,
+      max = _charStr.length - 1,
+      _str = "";
+  //判断是否指定长度，否则默认长度为15
+  len = len || 15;
+  //循环生成字符串
+  for (let i = 0, index; i < len; i++) {
+    index = RandomIndex(min, max, i);
+    _str += _charStr[index];
+  }
+  return _str;
+};
 
 const talkBox = ref();
 const findIndex = ref(null);//实际上最多找到1个
