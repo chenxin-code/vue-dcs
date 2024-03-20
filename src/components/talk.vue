@@ -3,7 +3,7 @@
     <div class="talk-box" ref="talkBox">
       <msg
           :bItem="bItem"
-          v-for="(bItem,bIndex) in curBranch"
+          v-for="(bItem,bIndex) in msgData"
           :key="bIndex"
           @sendtomedia="sendtomedia"
           @localPlay="localPlay"
@@ -11,7 +11,7 @@
           @scrollBarTo="scrollBarTo"
           @openPopup="openPopup"
           :fluentWelcome="props.fluentWelcome"
-          :curBranch="curBranch"
+          :msgData="msgData"
           :isShake="findIndex === bIndex"
       >
       </msg>
@@ -28,8 +28,7 @@
 <script lang="ts" setup>
 import {ref, defineEmits, onMounted, nextTick, defineProps, watch, defineExpose} from "vue";
 import msg from "./msg.vue";
-//import branches from '@/branches.ts';//多分支
-import singleBranch from '@/singleBranch.ts';//单分支
+import talkTree from '@/talkTree.ts';
 import creditCardPopup from "@/components/popup/creditCard.vue";
 import httpszzt from "@/api/reqszzt";
 import {store} from "@/store/store";
@@ -113,22 +112,22 @@ const reply = (reply: { title: string; vdid: string; msg: string; btn: never; })
   if (reply.btn) {
     temp = Object.assign(temp, {btn: reply.btn});
   }
-  curBranch.value.map((item, index) => {
+  msgData.value.map((item, index) => {
     if (item.vdid === temp.vdid) {
       findIndex.value = index;
     }
   });
   console.log('findIndex', findIndex.value);
   if (findIndex.value) {
-    console.log('需要抖动的消息', curBranch.value[findIndex.value]);
+    console.log('需要抖动的消息', msgData.value[findIndex.value]);
   } else {
-    curBranch.value.push(temp);
+    msgData.value.push(temp);
     nextTick(() => {
       console.log('滚动条自动到底部');
       talkBox.value.scrollTop = talkBox.value.scrollHeight;
     });
   }
-  console.log('curBranch', curBranch.value);
+  console.log('msgData', msgData.value);
   nextTick(() => {
     findIndex.value = null;
   });
@@ -139,8 +138,7 @@ const scrollBarTo = (offsetTop: number) => {
   talkBox.value.scrollTop = offsetTop;
 };
 
-//当前对话分支
-const curBranch = ref(singleBranch);
+const msgData = ref(talkTree);
 
 interface Inprops {
   fluentWelcome: boolean;

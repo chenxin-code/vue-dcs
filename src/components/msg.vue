@@ -28,7 +28,7 @@ const msgBox = ref();
 interface Inprops {
   bItem: never;
   fluentWelcome: boolean;
-  curBranch: never;
+  msgData: never;
   isShake: boolean;
 }
 
@@ -61,8 +61,7 @@ watch(
     }
 );
 
-watch(() => props.curBranch, () => {
-  console.log('子组件监听到去新分支');
+watch(() => props.msgData, () => {
   doWay(props.bItem);
 })
 
