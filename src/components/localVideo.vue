@@ -20,6 +20,17 @@ const videos = ref([
   {id: 'sp5', name: 'sp5'},
   {id: 'sp6', name: 'sp6'},
   {id: 'sp7', name: 'sp7'},
+  {id: 'sp8', name: 'sp8'},
+  {id: 'sp9', name: 'sp9'},
+  {id: 'sp10', name: 'sp10'},
+  {id: 'sp11', name: 'sp11'},
+  {id: 'sp12', name: 'sp12'},
+  {id: 'sp13', name: 'sp13'},
+  {id: 'sp14', name: 'sp14'},
+  {id: 'sp15', name: 'sp15'},
+  {id: 'sp16', name: 'sp16'},
+  {id: 'sp17', name: 'sp17'},
+  {id: 'sp18', name: 'sp18'},
 ]);
 
 const emits = defineEmits([
