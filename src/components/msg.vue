@@ -71,11 +71,12 @@ const emits = defineEmits([
   'localPlay',
   'scrollBarTo',
   'openPopup',
+  'sendQuestion',
 ]);
 
 const doWay = (o: { msg: string; vdid: string; }) => {
   console.log('doWay:  msg ------>', o.msg, ' vdid ------>', o.vdid);
-  if (store.online) {
+  if (store.ttsaOnline) {
     emits('sendtomedia', o.msg);
   } else {
     if (o.vdid) {
@@ -84,14 +85,20 @@ const doWay = (o: { msg: string; vdid: string; }) => {
   }
 };
 
-const clickAction = (btnItem: { reply: { msg: string; vdid: string; }; popup: string; }) => {
-  if (btnItem.reply) {
-    console.log('回复', btnItem.reply);
-    emits('reply', btnItem.reply);
-    doWay(btnItem.reply);
-  }
-  if (btnItem.popup) {
-    emits('openPopup', btnItem.popup);
+const clickAction = (btnItem: { questionId: string; reply: { msg: string; vdid: string; }; popup: string; }) => {
+  if (!store.useDemoTalk) {
+    if (btnItem.questionId) {
+      emits('sendQuestion', btnItem.questionId);
+    }
+  } else {
+    if (btnItem.reply) {
+      console.log('回复', btnItem.reply);
+      emits('reply', btnItem.reply);
+      doWay(btnItem.reply);
+    }
+    if (btnItem.popup) {
+      emits('openPopup', btnItem.popup);
+    }
   }
 };
 

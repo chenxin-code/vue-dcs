@@ -60,7 +60,17 @@ const store = {
     return this.platformInfo;
   },
 
-  //线上 true 本地 false
-  online: false,
+
+  ////////////////////////////////////////////////////////////////////
+
+
+  // TTSA在线 true   本地播放视频 false
+  ttsaOnline: false,
+  // 使用demo谈话内容 true   不使用 false
+  useDemoTalk: false,
+
+
+
+
 };
 export { store };

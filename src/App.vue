@@ -5,7 +5,7 @@
         :fluentWelcome="addWelcomeConversation"
         @sendchattomedia="sendchattomedia"
         @interruptVoice="interruptVoice"
-        v-if="store.online"
+        v-if="store.ttsaOnline"
     ></talk-content>
     <div id="ttsa" v-show="ttasDomShow">
       <div class="canvasWindow" id="canvasWindow">
@@ -100,7 +100,7 @@ onMounted(() => {
   // window.$newiframe = openiframe
   ttsaready.value = true;
   ttsaWork.value = false;
-  if (!store.online) {
+  if (!store.ttsaOnline) {
     ttasDomShow.value = true;
     addWelcomeConversation.value = true;
     return;
@@ -452,7 +452,7 @@ const stopMusic = () => {
   }
 }
 onUnmounted(() => {
-  if (!store.online) {
+  if (!store.ttsaOnline) {
     return;
   }
   instanceTTSA.value.closeRoom();

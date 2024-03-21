@@ -10,6 +10,7 @@
           @reply="reply"
           @scrollBarTo="scrollBarTo"
           @openPopup="openPopup"
+          @sendQuestion="sendQuestion"
           :fluentWelcome="props.fluentWelcome"
           :msgData="msgData"
           :isShake="findIndex === bIndex"
@@ -28,18 +29,21 @@
 <script lang="ts" setup>
 import {ref, defineEmits, onMounted, nextTick, defineProps, watch, defineExpose} from "vue";
 import msg from "./msg.vue";
-import talkTree from '@/talkTree.ts';
+import demoTalkTree from '@/demoTalkTree.ts';
+import QA from '@/QA.json';
 import creditCardPopup from "@/components/popup/creditCard.vue";
 import httpszzt from "@/api/reqszzt";
 import {store} from "@/store/store";
 import initInfo from "@/components/initInfo.vue";
 import {jsonToXml, XMLToJSON, JSONToXML} from "@/utils/json-xml.js";
 
-
 onMounted(() => {
   sessionStorage.setItem('sessionid', getRandomString(32));
+});
 
-  setTimeout(() => {
+const sendQuestion = (question: string) => {
+  let http = false;
+  if (http) {
     httpszzt.postRobot(
         store.platformInfo.requestHead +
         store.platformInfo.requestDomain +
@@ -51,17 +55,50 @@ onMounted(() => {
         '&location=' +
         store.platformInfo.location +
         '&sessionId=' +
-        sessionStorage.getItem("sessionid") +
+        sessionStorage.getItem('sessionid') +
         '&dstType=16&platform=' +
         'platform06' +
         '&question=' +
-        'myCreditCardExceeds300'
+        question
     ).then((resp) => {
-      let getAnswer = getXMLNode({xmlStr: resp.data}, "Content");
-      console.log('getAnswer--->', getAnswer, XMLToJSON(getAnswer));
+      let answerXml = getXMLNode({xmlStr: resp.data}, "Content");
+      let answerJson = XMLToJSON(answerXml);
+      handleAnswerJson(answerJson);
     });
-  }, 2000);
-});
+  } else {
+    let answerJson;
+    QA.map((item)=>{
+      if(item.question.id===question){
+        answerJson = item.answer;
+      }
+    });
+    handleAnswerJson(answerJson);
+    //特殊 question 处理
+    if(question === 'otherInstallmentPlans'){
+      //信用卡弹出层
+      openPopup('creditCard');
+    }
+  }
+};
+
+const handleAnswerJson = (answerJson) => {
+  console.log('answerJson--->', answerJson);
+  if (answerJson && answerJson.talk) {
+    for (const i in answerJson.talk) {
+      if (answerJson.talk.hasOwnProperty(i)) {
+        // 模仿 demoTalkTree 格式
+        msgData.value.push({
+          title: answerJson.talk[i].title,
+          msg: answerJson.talk[i].msg,
+          btn: answerJson.talk[i].btn,
+        });
+      }
+    }
+  }
+  if (answerJson && answerJson.video && answerJson.video.id) {
+    localPlay(answerJson.video.id);
+  }
+};
 
 const getXMLNode = (parm: any, type: string) => {
   let str = parm.xmlStr;
@@ -138,7 +175,14 @@ const scrollBarTo = (offsetTop: number) => {
   talkBox.value.scrollTop = offsetTop;
 };
 
-const msgData = ref(talkTree);
+const msgData = ref([]);
+if (!store.useDemoTalk) {
+  setTimeout(() => {
+    sendQuestion('myCreditCardExceeds300');
+  }, 2000);
+} else {
+  msgData.value = demoTalkTree;
+}
 
 interface Inprops {
   fluentWelcome: boolean;
