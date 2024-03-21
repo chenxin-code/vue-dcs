@@ -63,8 +63,6 @@ class ftcRecorder{
         this.isRecording = false;
     }
 }
-
-
 function downloadFile(data, filename, type) {
     // 创建 Blob 对象
     const blob = new Blob([data], { type: type });
@@ -91,13 +89,14 @@ function downloadFile(data, filename, type) {
         URL.revokeObjectURL(url);
     }
 }
-
 let sp = new ftcRecorder();
 sp.setVideo(document.getElementById('ttsa-video'));
 sp.start();
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 sp.stop();
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 downloadFile(sp.videoData,Date.parse(new Date())+'.webm',"video/x-matroska;codecs=avc1,opus");
