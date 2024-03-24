@@ -1,7 +1,7 @@
 <template>
   <div class="msg-box" :class="{op: op,shake: shake}" ref="msgBox">
     <div class="title" v-if="props.bItem.title">{{ props.bItem.title }}</div>
-    <div class="msg">{{ props.bItem.msg }}</div>
+    <div class="msg" v-if="props.bItem.msg" v-html="props.bItem.msg"></div>
     <div class="btn-box" v-if="props.bItem.btn">
       <button
           @click="clickAction(btnItem)"
@@ -174,8 +174,12 @@ const clickAction = (btnItem: { questionId: string; reply: { msg: string; vdid: 
   //  left: 80px;
   //  border-color:  #fff transparent transparent;
   //}
-  .msg {
+  /deep/ .msg {
     padding: 0.2rem 1rem;
+
+    > span {
+      color: red;
+    }
   }
 
   .btn-box {

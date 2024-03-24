@@ -67,14 +67,14 @@ const sendQuestion = (question: string) => {
     });
   } else {
     let answerJson;
-    QA.map((item)=>{
-      if(item.question.id===question){
+    QA.map((item) => {
+      if (item.question.id === question) {
         answerJson = item.answer;
       }
     });
     handleAnswerJson(answerJson);
     //特殊 question 处理
-    if(question === 'otherInstallmentPlans'){
+    if (question === 'otherInstallmentPlans') {
       //信用卡弹出层
       openPopup('creditCard');
     }
@@ -84,20 +84,30 @@ const sendQuestion = (question: string) => {
 const handleAnswerJson = (answerJson) => {
   console.log('answerJson--->', answerJson);
   if (answerJson && answerJson.talk) {
-    for (const i in answerJson.talk) {
-      if (answerJson.talk.hasOwnProperty(i)) {
-        // 模仿 demoTalkTree 格式
-        msgData.value.push({
-          title: answerJson.talk[i].title,
-          msg: answerJson.talk[i].msg,
-          btn: answerJson.talk[i].btn,
-        });
-      }
-    }
+    answerJson.talk.forEach((item) => {
+      // 模仿 demoTalkTree 格式
+      msgData.value.push(Object.assign({
+        title: item.title,
+        btn: item.btn
+      }, item.msg ? {msg: replaceMsg(item.msg)} : {}));
+    });
   }
   if (answerJson && answerJson.video && answerJson.video.id) {
     localPlay(answerJson.video.id);
   }
+};
+
+const replaceMsg = (msg: string) => {
+  return msg
+      .replace(/{{name}}/g, '<span id="name">王先生</span>')
+      .replace(/{{bill}}/g, '<span id="bill">8569.23</span>')
+      .replace(/{{period}}/g, '<span id="period">12</span>')
+      .replace(/{{repay}}/g, '<span id="repay">25.86</span>')
+      .replace(/{{interest}}/g, '<span id="interest">33.14</span>')
+      .replace(/{{money}}/g, '<span id="money">88.55</span>')
+      .replace(/\[\[/g, '<span>')
+      .replace(/]]/g, '</span>')
+      ;
 };
 
 const getXMLNode = (parm: any, type: string) => {
