@@ -15,6 +15,7 @@
     "crypto-js": "^4.1.1",
     "howler": "^2.2.3",
     "lodash": "^4.17.21",
+    "typed-vue3": "0.0.2",
     "vant": "^3.6.12",
     "vue": "^3.0.0",
     "vue-video-player": "^5.0.2"
