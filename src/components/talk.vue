@@ -1,5 +1,5 @@
 <template>
-  <div class="bg">
+  <div class="bg" v-show="!showCreditCardPopup">
     <div class="talk-box" ref="talkBox">
       <msg
           :bItem="bItem"
@@ -18,9 +18,10 @@
       </msg>
     </div>
   </div>
+  <bubble :bubbleStr="bubbleStr" v-if="showCreditCardPopup"></bubble>
   <!--信用卡弹出层-->
   <creditCardPopup
-      @closePopup="showCreditCardPopup = false"
+      @closePopup="showCreditCardPopup = false;localPlay('wait')"
       v-if="showCreditCardPopup"
   ></creditCardPopup>
   <init-info></init-info>
@@ -29,6 +30,7 @@
 <script lang="ts" setup>
 import {ref, defineEmits, onMounted, nextTick, defineProps, watch, defineExpose} from "vue";
 import msg from "./msg.vue";
+import bubble from "./bubble.vue";
 import demoTalkTree from '@/demoTalkTree.ts';
 import QA from '@/QA.json';
 import creditCardPopup from "@/components/popup/creditCard.vue";
@@ -81,6 +83,7 @@ const sendQuestion = (question: string) => {
   }
 };
 
+const bubbleStr = ref('');
 const handleAnswerJson = (answerJson) => {
   console.log('answerJson--->', answerJson);
   if (answerJson && answerJson.talk) {
@@ -94,6 +97,11 @@ const handleAnswerJson = (answerJson) => {
   }
   if (answerJson && answerJson.video && answerJson.video.id) {
     localPlay(answerJson.video.id);
+  }
+  if (answerJson && answerJson.bubble) {
+    bubbleStr.value = answerJson.bubble;
+  } else {
+    bubbleStr.value = '';
   }
 };
 
