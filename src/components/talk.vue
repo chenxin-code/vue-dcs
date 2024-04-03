@@ -22,6 +22,9 @@
   <!--信用卡弹出层-->
   <creditCardPopup
       @closePopup="showCreditCardPopup = false;localPlay('wait')"
+      @inputFocus="sendQuestion('inputForInstallmentAmount')"
+      @noChecked="sendQuestion('noCheckWarmReminder')"
+      @isChecked="sendQuestion('applyForCreditCardInstallmentPayments')"
       v-if="showCreditCardPopup"
   ></creditCardPopup>
   <init-info></init-info>

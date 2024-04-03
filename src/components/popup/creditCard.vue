@@ -11,6 +11,12 @@
         <div class="rmb">¥1000.00</div>
       </div>
       <div class="box3">
+        <div class="line-item">
+          <div>分期金额</div>
+          <div>
+            <van-field @focus="inputFocus()" placeholder="请输入分期金额" right-icon="edit" input-align="right"/>
+          </div>
+        </div>
         <div class="line-item arrow" @click="showPeriodBox = !showPeriodBox">
           <div>分期选择</div>
           <div>12期</div>
@@ -42,16 +48,46 @@
             <div class="discount">7折</div>
           </div>
         </div>
-        <div class="line-item">
+        <div class="line-item mb">
           <div>每期应还</div>
           <div>¥100.00</div>
+          <div class="patch">每期本金：995.00 每期分期利息：90.57</div>
         </div>
         <div class="line-item">
-          <div>每期利息</div>
-          <div>¥10.00</div>
+          <div>计息方式</div>
+          <div>分期收取</div>
+        </div>
+        <div class="line-item">
+          <div>近似折算年化利率(单利)</div>
+          <div>13.04%</div>
+        </div>
+        <div class="prompt-box">
+          <div class="title">温馨提示</div>
+          <div class="content">·每期分期利息=分期本金总额*每期分期利率。</div>
+          <div class="content">·未按期足额还款产生的利息、还款违约金及相应计算规则按照《中国建设银行龙卡信用卡领用协议》执行。</div>
         </div>
       </div>
-      <button @click="">办理信用卡分期</button>
+      <div class="btn-box">
+        <div class="line1">
+          <van-checkbox
+              v-model="checked"
+              shape="square"
+              checked-color="rgba(49, 157, 255, 1)"
+              icon-size="0.75rem">
+            <span :style="{color: checked?'rgba(49, 157, 255, 1)':'inherit'}">我已阅读并同意</span>
+          </van-checkbox>
+        </div>
+        <div class="line2" @click="showTermBox = true">《中国建设银行龙卡信用卡账单分期付款业务约定条款》</div>
+        <button @click="handle()">办理信用卡分期</button>
+      </div>
+      <div class="term-box" v-show="showTermBox">
+        <div class="title">《中国建设银行龙卡信用卡账单分期 付款业务约定条款》</div>
+        <div class="content">{{ '一段文本'.repeat(999) }}</div>
+        <div class="btn-box">
+          <button @click="checked = true;showTermBox = false">同意协议</button>
+          <button @click="showTermBox = false">返回</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -59,12 +95,25 @@
 <script lang="ts" setup>
 import {defineEmits, onMounted, ref, computed, watch} from "vue";
 
-const emit = defineEmits(["closePopup"]);
+const emit = defineEmits(["closePopup", "inputFocus", "noChecked", "isChecked"]);
 const closePopup = () => {
   emit("closePopup");
 };
+const inputFocus = () => {
+  emit("inputFocus");
+};
 const showPeriodBox = ref(false);
-onMounted(() => {});
+const showTermBox = ref(false);
+const checked = ref(false);
+const handle = () => {
+  if (checked.value) {
+    emit("isChecked");
+  } else {
+    emit("noChecked");
+  }
+};
+onMounted(() => {
+});
 
 </script>
 
@@ -81,9 +130,9 @@ onMounted(() => {});
   .popupDialog {
     position: absolute;
     left: 0;
-    top: 38%;
+    top: 30%;
     width: 100%;
-    height: 62%;
+    height: 70%;
     background-color: #fff;
     border-radius: 1rem 1rem 0 0;
 
@@ -160,7 +209,7 @@ onMounted(() => {});
 
     .box3 {
       overflow-y: auto;
-      height: 40%;
+      height: 35%;
 
       .period-box {
         padding: 0 0.2rem;
@@ -202,11 +251,22 @@ onMounted(() => {});
       padding: 0.2rem 1.4rem;
 
       .line-item {
-        margin: 1.2rem 0;
-        font-size: 1rem;
+        margin: 1.4rem 0;
+        font-size: 0.88rem;
         display: flex;
         justify-content: space-between;
         position: relative;
+
+        &::before {
+          position: absolute;
+          height: 1px;
+          background-color: rgba(149, 149, 149, 1);
+          content: '';
+          right: 0;
+          bottom: -0.7rem;
+          left: 0;
+          transform: scaleY(0.13);
+        }
 
         &.arrow {
           cursor: pointer;
@@ -225,38 +285,158 @@ onMounted(() => {});
             right: 0;
           }
         }
+
+        .van-cell {
+          padding: 0;
+          line-height: inherit;
+          background: inherit;
+        }
+
+        &.mb {
+          margin-bottom: 2.8rem;
+
+          &::before {
+            bottom: -2.1rem;
+          }
+        }
+
+        .patch {
+          color: darkgrey;
+          font-size: 0.82rem;
+          position: absolute;
+          right: 0;
+          bottom: -1.4rem;
+        }
+      }
+
+      .prompt-box {
+        margin-bottom: 1.4rem;
+        position: relative;
+
+        &::before {
+          position: absolute;
+          height: 1px;
+          background-color: rgba(149, 149, 149, 1);
+          content: '';
+          right: 0;
+          bottom: -0.7rem;
+          left: 0;
+          transform: scaleY(0.13);
+        }
+
+        .title {
+          font-size: 0.88rem;
+          margin-bottom: 0.44rem;
+        }
+
+        .content {
+          font-size: 0.66rem;
+          margin-bottom: 0.33rem;
+          color: rgba(118, 120, 128, 1);
+        }
       }
     }
 
-    button {
-      margin: 0.2rem 0.5rem;
-      border-radius: 50vw;
-      cursor: pointer;
-      font-size: 1rem;
-      line-height: 2.5;
-      background: linear-gradient(to right, rgba(35, 107, 255, 1), rgba(192, 21, 217, 1));
-      color: #fff;
-      border: none;
+    > .btn-box {
       position: absolute;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 75%;
+      bottom: 0;
+      width: 100%;
+      padding-top: 0.5rem;
+      padding-bottom: 4.5rem;
+
+      .line1 {
+        font-size: 0.75rem;
+
+        .van-checkbox {
+          justify-content: center;
+        }
+      }
+
+      .line2 {
+        margin-top: 0.1rem;
+        font-size: 0.75rem;
+        text-align: center;
+        color: rgba(49, 157, 255, 1);
+        cursor: pointer;
+      }
+
+      > button {
+        margin: 0.2rem 0.5rem;
+        border-radius: 50vw;
+        cursor: pointer;
+        font-size: 1rem;
+        line-height: 2.5;
+        background: linear-gradient(to right, rgba(35, 107, 255, 1), rgba(192, 21, 217, 1));
+        color: #fff;
+        border: none;
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 75%;
+      }
     }
 
+    .term-box {
+      padding: 1rem;
+      word-wrap: break-word;
+      position: absolute;
+      left: 1rem;
+      right: 1rem;
+      top: 1rem;
+      bottom: 1rem;
+      background-color: ghostwhite;
+      border-radius: 1rem;
+
+      .title {
+        margin: 0.7rem 0 1rem;
+        font-size: 1.2rem;
+        text-align: center;
+        color: rgba(35, 108, 255, 1);
+      }
+
+      .content {
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+        font-size: 0.77rem;
+        color: rgba(118, 120, 128, 1);
+        overflow-y: auto;
+        position: absolute;
+        top: 6rem;
+        bottom: 4rem;
+      }
+
+      > .btn-box {
+        display: flex;
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+
+        > button {
+          flex: 1;
+          margin: 0.2rem 0.5rem;
+          border-radius: 50vw;
+          cursor: pointer;
+          font-size: 1rem;
+          line-height: 2.5;
+
+          &:nth-child(1) {
+            background: linear-gradient(to right, rgba(35, 107, 255, 1), rgba(192, 21, 217, 1));
+            color: #fff;
+            border: none;
+          }
+
+          &:nth-child(2) {
+            background: #fff;
+            color: rgba(35, 108, 255, 1);
+            border: 0.02rem solid rgba(35, 107, 255, 1);
+          }
+        }
+
+      }
+    }
   }
 
 }
-
-//@media screen and (min-width: 600px) {
-//  .popupWindow {
-//    .popupDialog {
-//      left: 35%;
-//      top: 6%;
-//      width: 59%;
-//      height: 76%;
-//      border-radius: 10px 10px 10px 10px;
-//    }
-//  }
-//}
 </style>
