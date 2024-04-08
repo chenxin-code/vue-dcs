@@ -5,9 +5,14 @@
         <van-icon name="arrow-left" color="rgba(121, 121, 121, 1)" size="1.1rem" @click="showConfirm = false"
                   v-show="showConfirm"/>
         <img src="@/assets/img/intoKefu.png" alt=""/>
-        <span class="title" @click="showAllCard()">建设银行信用卡（3298）</span>
+        <span class="title" :class="{'show-all-card': showAllCardBox}" @click="showAllCard()">建设银行信用卡（3298）</span>
         <van-icon name="cross" color="rgba(121, 121, 121, 1)" size="1.1rem" @click="closePopup()"/>
-        <div v-show="showAllCardBox"></div>
+        <div class="all-card-box" v-show="showAllCardBox">
+          <div class="card">龙卡家庭挚爱信用卡（2834）</div>
+          <div class="card">龙卡家庭挚爱信用卡（2834）</div>
+          <div class="card">建设银行信用卡（3298）</div>
+          <div class="card">建设银行信用卡（3298）</div>
+        </div>
       </div>
       <div class="box2" v-show="!showConfirm">
         <div class="tip">信用卡分期利息有7折优惠</div>
@@ -180,6 +185,7 @@ onMounted(() => {
       .title {
         font-size: 0.85rem;
         font-weight: bold;
+        cursor: pointer;
         position: relative;
 
         &::after {
@@ -190,6 +196,13 @@ onMounted(() => {
           position: absolute;
           top: 50%;
           right: -0.7rem;
+        }
+
+        &.show-all-card::after {
+          border-top: none;
+          border-bottom: 0.35rem solid #000;
+          transform: translateY(0);
+          top: 30%;
         }
       }
 
@@ -209,6 +222,22 @@ onMounted(() => {
 
       .van-icon-arrow-left {
         vertical-align: middle;
+      }
+
+      .all-card-box {
+        background-color: ghostwhite;
+        border-radius: 0.2rem;
+        position: absolute;
+        top: 3.5rem;
+        left: 1.4rem;
+        right: 1.4rem;
+        z-index: 1;
+        .card {
+          font-size: 0.8rem;
+          //font-weight: bold;
+          cursor: pointer;
+          padding: 0.35rem 1.4rem;
+        }
       }
     }
 
