@@ -55,7 +55,7 @@
         class="backtohomeBtn"
         src="@/assets/img/backtohome.png"
         @click="backtohome"
-    />
+        alt=""/>
     <!--    <div class="prodtitle" v-if="!isPc">数字客户经理</div>-->
     <div class="tips" v-show="errorTipsShow">{{ errorTips }}</div>
     <!-- <show-frame v-if="iframeShow" :url="iframeUrl" @close="closeiframe"></show-frame> -->
@@ -68,14 +68,14 @@
 
 <script lang="ts" setup>
 import {ref, onMounted, onUnmounted, nextTick, computed} from "vue";
-import talkContent from "@/components/talkContent.vue";
-import talk from "@/components/talk.vue";
-import localVideo from "@/components/localVideo.vue";
+import TalkContent from "@/components/talkContent.vue";
+import Talk from "@/components/talk.vue";
+import LocalVideo from "@/components/localVideo.vue";
 //import historyTimeSelect from "@/components/historyTimeSelect.vue";
-import rightButtonBar from "@/components/rightButtonBar.vue";
-import fontSizeChange from "@/components/fontSizeChange.vue";
+import RightButtonBar from "@/components/rightButtonBar.vue";
+import FontSizeChange from "@/components/fontSizeChange.vue";
 //import showFrame from "@/components/showFrame.vue";
-import circleLoading from "@/components/circleLoading.vue";
+import CircleLoading from "@/components/circleLoading.vue";
 //import gifbackground from "@/components/gifbackground/gifbackground.vue";
 //import transferToSound from "@/components/transfertosound/transferToSound.vue";
 import httpszzt from "@/api/reqszzt";

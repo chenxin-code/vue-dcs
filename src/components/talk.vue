@@ -15,12 +15,10 @@
           @handleAnswerJsonTalk="handleAnswerJsonTalk"
           :fluentWelcome="props.fluentWelcome"
           :msgData="msgData"
-          :isShake="findIndex === bIndex"
-      >
-      </msg>
+          :isShake="findIndex === bIndex"/>
     </div>
   </div>
-  <bubble :bubbleStr="bubbleStr" v-if="showCreditCardPopup"></bubble>
+  <bubble :bubbleStr="bubbleStr" v-if="showCreditCardPopup"/>
   <!--信用卡弹出层-->
   <creditCardPopup
       @closePopup="showCreditCardPopup = false;localPlay('wait')"
@@ -28,21 +26,20 @@
       @noChecked="sendQuestion('noCheckWarmReminder')"
       @isChecked="sendQuestion('applyForCreditCardInstallmentPayments')"
       @confirmHandle="showCreditCardPopup = false;sendQuestion('confirmProcess')"
-      v-if="showCreditCardPopup"
-  ></creditCardPopup>
-  <init-info></init-info>
+      v-if="showCreditCardPopup"/>
+  <init-info/>
 </template>
 
 <script lang="ts" setup>
 import {ref, defineEmits, onMounted, nextTick, defineProps, watch, defineExpose} from "vue";
-import msg from "./msg.vue";
-import bubble from "./bubble.vue";
+import Msg from "./msg.vue";
+import Bubble from "./bubble.vue";
 import demoTalkTree from '@/demoTalkTree.ts';
 import QA from '@/QA.json';
-import creditCardPopup from "@/components/popup/creditCard.vue";
+import CreditCardPopup from "@/components/popup/creditCard.vue";
 import httpszzt from "@/api/reqszzt";
 import {store} from "@/store/store";
-import initInfo from "@/components/initInfo.vue";
+import InitInfo from "@/components/initInfo.vue";
 import {jsonToXml, XMLToJSON, JSONToXML} from "@/utils/json-xml.js";
 
 onMounted(() => {
@@ -234,6 +231,7 @@ const scrollBarTo = (offsetTop: number) => {
 
 const msgData = ref([]);
 if (!store.useDemoTalk) {
+  //本来写在onMounted里
   setTimeout(() => {
     sendQuestion('myCreditCardLess300');// myCreditCardExceeds300 myCreditCardLess300 noCreditCard
   }, 2000);
@@ -245,8 +243,6 @@ interface Inprops {
   fluentWelcome: boolean;
   bodyheight: number;
   bodywidth: number;
-  //ttsaWork: boolean;
-  //ttasDomShow: boolean;
 }
 
 const props = defineProps<Inprops>();
