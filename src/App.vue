@@ -7,7 +7,7 @@
         @interruptVoice="interruptVoice"
         v-if="store.ttsaOnline"
     ></talk-content>
-    <div id="ttsa" v-show="ttasDomShow">
+    <div id="ttsa" v-if="ttasDomShow">
       <div class="canvasWindow" id="canvasWindow">
         <!-- 视频截图 -->
         <canvas id="c1" :width="bodywidth" :height="bodyheight" style="display:none;"></canvas>
@@ -60,9 +60,10 @@
     <div class="tips" v-show="errorTipsShow">{{ errorTips }}</div>
     <!-- <show-frame v-if="iframeShow" :url="iframeUrl" @close="closeiframe"></show-frame> -->
     <circle-loading v-if="circleLoadingShow" :progressNum="cicleRate" @loadingover="loadingover"></circle-loading>
+    <firstScreen @enter="enter" v-if="showFirstScreen"/>
     <transfer-to-sound ref="transferToSoundNode"></transfer-to-sound>
-<!--      <disconnectKefu ref="onDisconnectKefu" v-show="false"/>
-        <history-time-select v-if="showHistoryDate" @close="closeHistoryCalender"></history-time-select>-->
+    <!--      <disconnectKefu ref="onDisconnectKefu" v-show="false"/>
+            <history-time-select v-if="showHistoryDate" @close="closeHistoryCalender"></history-time-select>-->
   </div>
 </template>
 
@@ -76,6 +77,7 @@ import RightButtonBar from "@/components/rightButtonBar.vue";
 import FontSizeChange from "@/components/fontSizeChange.vue";
 //import showFrame from "@/components/showFrame.vue";
 import CircleLoading from "@/components/circleLoading.vue";
+import FirstScreen from "@/components/firstScreen.vue";
 //import gifbackground from "@/components/gifbackground/gifbackground.vue";
 import TransferToSound from "@/components/transfertosound/transferToSound.vue";
 import httpszzt from "@/api/reqszzt";
@@ -101,8 +103,6 @@ onMounted(() => {
   ttsaready.value = true;
   ttsaWork.value = false;
   if (!store.ttsaOnline) {
-    ttasDomShow.value = true;
-    addWelcomeConversation.value = true;
     return;
   }
   fluentinit().then(() => {
@@ -398,6 +398,14 @@ const loadingover = () => {
     })
   })
 }
+const showFirstScreen = ref(true);
+const enter = () => {
+  ttasDomShow.value = true;
+  showFirstScreen.value = false;
+  nextTick(() => {
+    addWelcomeConversation.value = true;
+  });
+};
 
 // const useName = ref('');
 // const questionforlogo = ref('');
