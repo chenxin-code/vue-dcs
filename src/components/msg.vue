@@ -1,9 +1,9 @@
 <template>
   <div class="msg-box" :class="{op: op,shake: shake}" ref="msgBox">
     <div class="title" v-if="props.bItem.title">{{ props.bItem.title }}</div>
-<!--    <div class="msg" v-if="props.bItem.msg" v-html="props.bItem.msg"></div>-->
-    <TypedComponent :options="options">
-      <div class="typing msg" v-if="props.bItem.msg"></div>
+    <!--    <div class="msg" v-if="props.bItem.msg" v-html="props.bItem.msg"></div>-->
+    <TypedComponent :options="options" v-if="props.bItem.msg">
+      <div class="typing msg"></div>
     </TypedComponent>
     <div class="btn-box" v-if="props.bItem.btn">
       <button
@@ -20,7 +20,7 @@
 <script lang="ts" setup>
 import {ref, defineEmits, defineProps, onMounted, watch, nextTick, defineExpose} from "vue";
 import {store} from "@/store/store";
-import { TypedComponent, TypedOptions } from "typed-vue3";
+import {TypedComponent, TypedOptions} from "typed-vue3";
 
 const op = ref(false);
 setTimeout(() => {
@@ -31,6 +31,7 @@ const msgBox = ref();
 
 interface Inprops {
   bItem: never;
+  bIndex: number;
   fluentWelcome: boolean;
   msgData: never;
   isShake: boolean;
@@ -76,6 +77,7 @@ const emits = defineEmits([
   'scrollBarTo',
   'openPopup',
   'sendQuestion',
+  'handleAnswerJsonTalk',
 ]);
 
 const doWay = (o: { msg: string; vdid: string; }) => {
@@ -113,6 +115,7 @@ const options: TypedOptions = {
   cursorChar: '',
   onComplete(self) {
     console.log('onComplete', self);
+    emits('handleAnswerJsonTalk', props.bIndex + 1);
   }
 };
 

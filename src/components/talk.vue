@@ -3,6 +3,7 @@
     <div class="talk-box" ref="talkBox">
       <msg
           :bItem="bItem"
+          :bIndex="bIndex"
           v-for="(bItem,bIndex) in msgData"
           :key="bIndex"
           @sendtomedia="sendtomedia"
@@ -11,6 +12,7 @@
           @scrollBarTo="scrollBarTo"
           @openPopup="openPopup"
           @sendQuestion="sendQuestion"
+          @handleAnswerJsonTalk="handleAnswerJsonTalk"
           :fluentWelcome="props.fluentWelcome"
           :msgData="msgData"
           :isShake="findIndex === bIndex"
@@ -85,18 +87,15 @@ const sendQuestion = (question: string) => {
     }
   }
 };
-
+const answerJsonTalk = ref([]);
 const bubbleStr = ref('');
 const handleAnswerJson = (answerJson) => {
   console.log('answerJson--->', answerJson);
   if (answerJson && answerJson.talk) {
-    answerJson.talk.forEach((item) => {
-      // 模仿 demoTalkTree 格式
-      msgData.value.push(Object.assign({
-        title: item.title,
-        btn: item.btn
-      }, item.msg ? {msg: replaceMsg(item.msg)} : {}));
-    });
+    answerJsonTalk.value = answerJson.talk;
+    if (answerJsonTalk.value.length !== 0) {
+      handleAnswerJsonTalk(0);
+    }
   }
   if (answerJson && answerJson.video && answerJson.video.id) {
     localPlay(answerJson.video.id);
@@ -105,6 +104,16 @@ const handleAnswerJson = (answerJson) => {
     bubbleStr.value = answerJson.bubble;
   } else {
     bubbleStr.value = '';
+  }
+};
+
+const handleAnswerJsonTalk = (index: number) => {
+  if (answerJsonTalk.value[index]) {
+    // 模仿 demoTalkTree 格式
+    msgData.value.push(Object.assign({
+      title: answerJsonTalk.value[index].title,
+      btn: answerJsonTalk.value[index].btn
+    }, answerJsonTalk.value[index].msg ? {msg: replaceMsg(answerJsonTalk.value[index].msg)} : {}));
   }
 };
 
