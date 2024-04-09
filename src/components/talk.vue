@@ -37,7 +37,7 @@ import Bubble from "./bubble.vue";
 import demoTalkTree from '@/demoTalkTree.ts';
 import QA from '@/QA.json';
 import CreditCardPopup from "@/components/popup/creditCard.vue";
-import httpszzt from "@/api/reqszzt";
+import httpszzt from "@/api/reqszzt.js";
 import {store} from "@/store/store";
 import InitInfo from "@/components/initInfo.vue";
 import {jsonToXml, XMLToJSON, JSONToXML} from "@/utils/json-xml.js";
@@ -233,7 +233,7 @@ const msgData = ref([]);
 if (!store.useDemoTalk) {
   //本来写在onMounted里
   setTimeout(() => {
-    sendQuestion('myCreditCardLess300');// myCreditCardExceeds300 myCreditCardLess300 noCreditCard
+    sendQuestion('myCreditCardExceeds300');// myCreditCardExceeds300 myCreditCardLess300 noCreditCard
   }, 2000);
 } else {
   msgData.value = demoTalkTree;

@@ -60,8 +60,8 @@
     <div class="tips" v-show="errorTipsShow">{{ errorTips }}</div>
     <!-- <show-frame v-if="iframeShow" :url="iframeUrl" @close="closeiframe"></show-frame> -->
     <circle-loading v-if="circleLoadingShow" :progressNum="cicleRate" @loadingover="loadingover"></circle-loading>
-    <!--    <transfer-to-sound ref="transferToSoundNode"></transfer-to-sound>
-        <disconnectKefu ref="onDisconnectKefu" v-show="false"/>
+    <transfer-to-sound ref="transferToSoundNode"></transfer-to-sound>
+<!--      <disconnectKefu ref="onDisconnectKefu" v-show="false"/>
         <history-time-select v-if="showHistoryDate" @close="closeHistoryCalender"></history-time-select>-->
   </div>
 </template>
@@ -77,7 +77,7 @@ import FontSizeChange from "@/components/fontSizeChange.vue";
 //import showFrame from "@/components/showFrame.vue";
 import CircleLoading from "@/components/circleLoading.vue";
 //import gifbackground from "@/components/gifbackground/gifbackground.vue";
-//import transferToSound from "@/components/transfertosound/transferToSound.vue";
+import TransferToSound from "@/components/transfertosound/transferToSound.vue";
 import httpszzt from "@/api/reqszzt";
 import {store} from "@/store/store";
 import {encryptGcm} from "@/utils/aes.js";
