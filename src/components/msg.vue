@@ -164,7 +164,7 @@ const options: TypedOptions = {
 
   .title {
     border-radius: 0 2vw 0 0;
-    padding: 0.2rem 0;
+    padding: 0.3rem 0;
     font-size: 0.72rem;
     color: #fff;
     line-height: 1.5;
@@ -192,7 +192,8 @@ const options: TypedOptions = {
   //  border-color:  #fff transparent transparent;
   //}
   /deep/ .msg {
-    padding: 0.2rem 1rem;
+    padding: 0.5rem 1rem;
+    text-align: left;
 
     > span {
       color: red;
@@ -200,7 +201,7 @@ const options: TypedOptions = {
   }
 
   .btn-box {
-    padding: 0.2rem 1rem;
+    padding: 0.5rem 1rem;
     display: flex;
     flex-direction: column;
 

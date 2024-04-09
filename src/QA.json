@@ -120,11 +120,13 @@
           "btn": [
             {
               "text": "了解信用卡优惠",
-              "type": "primary"
+              "type": "primary",
+              "questionId": "creditCardDiscounts"
             },
             {
               "text": "了解信用卡积分",
-              "type": "general"
+              "type": "general",
+              "questionId": "creditCardPoints"
             }
           ]
         }
@@ -205,11 +207,13 @@
           "btn": [
             {
               "text": "了解信用卡优惠",
-              "type": "primary"
+              "type": "primary",
+              "questionId": "creditCardDiscounts"
             },
             {
               "text": "办理建行信用卡",
-              "type": "general"
+              "type": "general",
+              "questionId": "applyForCreditCard"
             }
           ]
         }

@@ -110,7 +110,7 @@
 <script lang="ts" setup>
 import {defineEmits, onMounted, ref, computed, watch} from "vue";
 
-const emit = defineEmits(["closePopup", "inputFocus", "noChecked", "isChecked"]);
+const emit = defineEmits(["closePopup", "inputFocus", "noChecked", "isChecked", "confirmHandle"]);
 const closePopup = () => {
   emit("closePopup");
 };
@@ -131,7 +131,7 @@ const handle = () => {
   }
 };
 const confirmHandle = () => {
-
+  emit("confirmHandle");
 };
 const selectPeriod = () => {
   if (!showConfirm.value) {

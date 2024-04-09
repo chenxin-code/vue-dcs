@@ -27,6 +27,7 @@
       @inputFocus="sendQuestion('inputForInstallmentAmount')"
       @noChecked="sendQuestion('noCheckWarmReminder')"
       @isChecked="sendQuestion('applyForCreditCardInstallmentPayments')"
+      @confirmHandle="showCreditCardPopup = false;sendQuestion('confirmProcess')"
       v-if="showCreditCardPopup"
   ></creditCardPopup>
   <init-info></init-info>
@@ -109,11 +110,36 @@ const handleAnswerJson = (answerJson) => {
 
 const handleAnswerJsonTalk = (index: number) => {
   if (answerJsonTalk.value[index]) {
-    // 模仿 demoTalkTree 格式
-    msgData.value.push(Object.assign({
-      title: answerJsonTalk.value[index].title,
-      btn: answerJsonTalk.value[index].btn
-    }, answerJsonTalk.value[index].msg ? {msg: replaceMsg(answerJsonTalk.value[index].msg)} : {}));
+    msgData.value.map((item, index2) => {
+      console.log(
+          'jsonStringify对比样本1',
+          item.jsonStringify,
+          'jsonStringify对比样本2',
+          JSON.stringify(answerJsonTalk.value[index])
+      );
+      if (item && (item.jsonStringify === JSON.stringify(answerJsonTalk.value[index]))) {
+        findIndex.value = index2;
+      }
+    });
+    console.log('findIndex', findIndex.value);
+    if (findIndex.value) {
+      console.log('需要抖动的消息', msgData.value[findIndex.value]);
+    } else {
+      // 模仿 demoTalkTree 格式
+      msgData.value.push(Object.assign({
+        jsonStringify: JSON.stringify(answerJsonTalk.value[index]),//仅用于 findIndex
+        title: answerJsonTalk.value[index].title,
+        btn: answerJsonTalk.value[index].btn
+      }, answerJsonTalk.value[index].msg ? {msg: replaceMsg(answerJsonTalk.value[index].msg)} : {}));
+      nextTick(() => {
+        console.log('滚动条自动到底部');
+        talkBox.value.scrollTop = talkBox.value.scrollHeight;
+      });
+    }
+    console.log('msgData', msgData.value);
+    nextTick(() => {
+      findIndex.value = null;
+    });
   }
 };
 
@@ -127,6 +153,7 @@ const replaceMsg = (msg: string) => {
       .replace(/{{money}}/g, '<span id="money">88.55</span>')
       .replace(/\[\[/g, '<span>')
       .replace(/]]/g, '</span>')
+      .replace(/\/br\//g, '<br/>')
       ;
 };
 
@@ -208,7 +235,7 @@ const scrollBarTo = (offsetTop: number) => {
 const msgData = ref([]);
 if (!store.useDemoTalk) {
   setTimeout(() => {
-    sendQuestion('myCreditCardExceeds300');
+    sendQuestion('myCreditCardLess300');// myCreditCardExceeds300 myCreditCardLess300 noCreditCard
   }, 2000);
 } else {
   msgData.value = demoTalkTree;
