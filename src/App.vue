@@ -12,7 +12,7 @@
         <canvas id="c1" :width="bodywidth" :height="bodyheight" style="display:none;"></canvas>
         <!-- 贴图至背景图上方 -->
         <canvas id="c3" :width="bodywidth" :height="bodyheight" :style="{height:canvasC3height+'px'}"></canvas>
-        <!--        <gifbackground :questionforlogo="questionforlogo" :useName="useName"></gifbackground>-->
+        <gifbackground/>
         <talk
             :fluentWelcome="addWelcomeConversation"
             :bodyheight="bodyheight"
@@ -74,7 +74,7 @@ import FontSizeChange from "@/components/fontSizeChange.vue";
 //import showFrame from "@/components/showFrame.vue";
 //import CircleLoading from "@/components/circleLoading.vue";
 import FirstScreen from "@/components/firstScreen.vue";
-//import gifbackground from "@/components/gifbackground/gifbackground.vue";
+import Gifbackground from "@/components/gifbackground/gifbackground.vue";
 import TransferToSound from "@/components/transfertosound/transferToSound.vue";
 //import httpszzt from "@/api/reqszzt";
 import {store} from "@/store/store";
