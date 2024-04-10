@@ -119,7 +119,7 @@ const options: TypedOptions = {
 <style lang="less" scoped>
 .msg-box {
   border-radius: 0 2vw 2vw 2vw;
-  background-color: #fff;
+  background: rgba(255, 255, 255, 0.3);
   //min-height: 3vh;
   font-size: 0.7rem;
   text-align: center;
@@ -146,14 +146,16 @@ const options: TypedOptions = {
 
   @keyframes shake {
     0% {
-      margin-left: 0;
-      margin-right: 0.2rem;
-      margin-top: 0;
+      //margin-left: 0;
+      //margin-right: 0.2rem;
+      //margin-top: 0;
+      opacity: 0;
     }
     100% {
-      margin-left: 0.2rem;
-      margin-right: 0;
-      margin-top: 0.2rem;
+      //margin-left: 0.2rem;
+      //margin-right: 0;
+      //margin-top: 0.2rem;
+      opacity: 1;
     }
   }
 
