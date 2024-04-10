@@ -9,16 +9,11 @@
       <img src="@/assets/img/ttsaVoiceBtnClose.png" @click="changeMute" v-show="props.mute" alt=""/>
       <div class="name">音量</div>
     </div>
-    <div class="buttonWithText" @click="jumpToHall" v-show="store.platformInfo.qiyeshoujiyinhang">
-      <img src="@/assets/img/enterToHall.png" alt=""/>
-      <div class="name">数字化展厅</div>
-    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {ref, onMounted, defineEmits, defineProps, watch} from "vue";
-import {store} from "@/store/store";
+import {defineEmits, defineProps} from "vue";
 
 interface Inprops {
   mute: boolean
@@ -31,12 +26,6 @@ const changeMute = () => {
 const emit = defineEmits(["changemute", "showChangeSize"]);
 const showChangeSize = () => {
   emit("showChangeSize");
-};
-
-const jumpToHall = () => {
-  console.log(process.env.NODE_ENV);
-  let baseUrl = process.env.NODE_ENV == "production" ? "https://api.match.ccb.com/dh/zhanting/investmentBank/index.html?from=" : "https://shuzizhanting.com/dh/zhanguan/investmentBank/index.html?from=";
-  window.location.href = (baseUrl + encodeURIComponent(window.location.href));
 };
 </script>
 
