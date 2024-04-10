@@ -1,103 +1,113 @@
 <template>
   <div id="rightBtnList" class="rightBtnList">
-    <div class="buttonWithText"><img src="@/assets/img/changeFontsizeBtn.png" @click="showChangeSize">
+    <div class="buttonWithText">
+      <img src="@/assets/img/changeFontsizeBtn.png" @click="showChangeSize" alt=""/>
       <div class="name">字体调整</div>
     </div>
     <div class="buttonWithText">
-      <img src="@/assets/img/ttsaVoiceBtn.png" @click="changeMute" v-show="!props.mute">
-      <img src="@/assets/img/ttsaVoiceBtnClose.png" @click="changeMute" v-show="props.mute">
+      <img src="@/assets/img/ttsaVoiceBtn.png" @click="changeMute" v-show="!props.mute" alt=""/>
+      <img src="@/assets/img/ttsaVoiceBtnClose.png" @click="changeMute" v-show="props.mute" alt=""/>
       <div class="name">音量</div>
     </div>
-    <div class="buttonWithText" @click="jumpToHall" v-show="store.platformInfo.qiyeshoujiyinhang"><img
-        src="@/assets/img/enterToHall.png">
+    <div class="buttonWithText" @click="jumpToHall" v-show="store.platformInfo.qiyeshoujiyinhang">
+      <img src="@/assets/img/enterToHall.png" alt=""/>
       <div class="name">数字化展厅</div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted,defineEmits,defineProps,watch } from "vue";
-import { store } from "@/store/store";
+import {ref, onMounted, defineEmits, defineProps, watch} from "vue";
+import {store} from "@/store/store";
+
 interface Inprops {
-  ttsaWork:boolean
-  mute:boolean
-
-}
-const props = defineProps<Inprops>()
-const changeMute = ()=>{
-  emit("changemute")
-}
-const emit = defineEmits(["changemute","showChangeSize"])
-const showChangeSize = ()=>{
-  emit("showChangeSize")
+  mute: boolean
 }
 
-const jumpToHall = ()=>{
+const props = defineProps<Inprops>();
+const changeMute = () => {
+  emit("changemute");
+};
+const emit = defineEmits(["changemute", "showChangeSize"]);
+const showChangeSize = () => {
+  emit("showChangeSize");
+};
+
+const jumpToHall = () => {
   console.log(process.env.NODE_ENV);
-  let baseUrl =  process.env.NODE_ENV=="production"?"https://api.match.ccb.com/dh/zhanting/investmentBank/index.html?from=":"https://shuzizhanting.com/dh/zhanguan/investmentBank/index.html?from="
-  window.location.href = (baseUrl+encodeURIComponent(window.location.href))
-}
+  let baseUrl = process.env.NODE_ENV == "production" ? "https://api.match.ccb.com/dh/zhanting/investmentBank/index.html?from=" : "https://shuzizhanting.com/dh/zhanguan/investmentBank/index.html?from=";
+  window.location.href = (baseUrl + encodeURIComponent(window.location.href));
+};
 </script>
 
 <style lang="less" scoped>
-.rightBtnList{
+.rightBtnList {
   position: fixed;
   right: 4%;
   top: 2%;
   width: 8%;
   height: fit-content;
-  >img{
+
+  > img {
     position: relative;
     width: 100%;
     object-fit: contain;
     margin-top: 5px;
     cursor: pointer;
   }
-  >div{
+
+  > div {
     position: relative;
     width: 100%;
     height: fit-content;
     margin-top: 5px;
     min-height: 8vw;
-    .name{
+
+    .name {
       position: absolute;
       font-size: 8px;
       color: #ffffff;
       white-space: nowrap;
       left: 50%;
-      transform: translate(-50%,0);
+      transform: translate(-50%, 0);
       text-shadow: 0 4px 4px #384664;
     }
-    .open{
+
+    .open {
       position: absolute;
       top: -35%;
       left: -35%;
       width: 170%;
       height: 8*1.7vw;
-      overflow:hidden;
-      >img{
+      overflow: hidden;
+
+      > img {
         position: relative;
         width: 100%;
         object-fit: cover;
       }
     }
-    .waitting{
+
+    .waitting {
       position: absolute;
       width: 100%;
       height: 8vw;
-      overflow:hidden;
-      >img{
+      overflow: hidden;
+
+      > img {
         position: relative;
         width: 100%;
         object-fit: cover;
       }
     }
-    >img{
+
+    > img {
       position: relative;
       width: 100%;
       object-fit: contain;
     }
-    .clip{
+
+    .clip {
       position: absolute;
       width: 90%;
       object-fit: contain;
@@ -105,6 +115,7 @@ const jumpToHall = ()=>{
       left: 60%;
       animation: sway 4s linear infinite;
     }
+
     @keyframes sway {
       0% {
         -webkit-transform: rotate(0deg) scale(1); /* Chrome, Opera 15+, Safari 3.1+ */
@@ -133,23 +144,28 @@ const jumpToHall = ()=>{
       }
     }
   }
-  .buttonWithText{
+
+  .buttonWithText {
     // margin-top: 5px;
     margin-bottom: 18px;
   }
 }
+
 @media screen and (min-width: 600px) {
-  .rightBtnList{
+  .rightBtnList {
     right: 2%;
     top: 5%;
     width: 1.8%;
-    >div{
+
+    > div {
       min-height: 1.8vw;
-      .waitting{
+
+      .waitting {
         height: 1.8vw;
         cursor: pointer;
       }
-      .open{
+
+      .open {
         height: 1.8*1.7vw;
         cursor: pointer;
       }

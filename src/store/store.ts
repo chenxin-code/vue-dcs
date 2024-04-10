@@ -1,5 +1,5 @@
 import {reactive, ref} from "vue";
-import {getQueryVariable} from "@/utils/utils.js";
+//import {getQueryVariable} from "@/utils/utils.js";
 
 interface platformInfo {
     platform?: any;
@@ -39,7 +39,7 @@ const store = {
         qiyeshoujiyinhang: false,
         feichiejia: false,
         feichiez: false,
-        historyRecord: process.env.NODE_ENV == "development" ? true : false,
+        historyRecord: process.env.NODE_ENV === "development",
         auth_code: false,
         connectStage: false,
         userName: '',

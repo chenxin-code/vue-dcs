@@ -40,8 +40,6 @@
     <right-button-bar
         @changemute="changemute"
         @showChangeSize="ChangeSizeSwitch"
-        @closeFluent="backtohome"
-        :ttsaWork="ttsaWork"
         :mute="ttsaMute"
     ></right-button-bar>
     <font-size-change
@@ -57,7 +55,7 @@
     <!--    <div class="prodtitle" v-if="!isPc">数字客户经理</div>-->
     <!--    <div class="tips" v-show="errorTipsShow">{{ errorTips }}</div>-->
     <!-- <show-frame v-if="iframeShow" :url="iframeUrl" @close="closeiframe"></show-frame> -->
-    <circle-loading v-if="circleLoadingShow" :progressNum="cicleRate" @loadingover="loadingover"></circle-loading>
+<!--    <circle-loading v-if="circleLoadingShow" :progressNum="cicleRate" @loadingover="loadingover"></circle-loading>-->
     <firstScreen @enter="enter" v-if="showFirstScreen"/>
     <transfer-to-sound ref="transferToSoundNode"></transfer-to-sound>
     <!--      <disconnectKefu ref="onDisconnectKefu" v-show="false"/>
@@ -74,7 +72,7 @@ import LocalVideo from "@/components/localVideo.vue";
 import RightButtonBar from "@/components/rightButtonBar.vue";
 import FontSizeChange from "@/components/fontSizeChange.vue";
 //import showFrame from "@/components/showFrame.vue";
-import CircleLoading from "@/components/circleLoading.vue";
+//import CircleLoading from "@/components/circleLoading.vue";
 import FirstScreen from "@/components/firstScreen.vue";
 //import gifbackground from "@/components/gifbackground/gifbackground.vue";
 import TransferToSound from "@/components/transfertosound/transferToSound.vue";
@@ -82,15 +80,15 @@ import TransferToSound from "@/components/transfertosound/transferToSound.vue";
 import {store} from "@/store/store";
 //import {encryptGcm} from "@/utils/aes.js";
 // import httpszzt from "@/api/reqszzt";
-import {call_client_pub} from "@/api";
+import {call_client_pub} from "@/api/index.js";
 import isPc from "@/utils/isPc.js";
 
-const instanceTTSA = ref("");
-const ttsaready = ref(false);
-const ttsaWork = ref(false);
+//const instanceTTSA = ref("");
+//const ttsaready = ref(false);
+//const ttsaWork = ref(false);
 const ttsaMute = ref(false);
 const ttasDomShow = ref(false);
-const ttsaInterval = ref('');
+//const ttsaInterval = ref('');
 
 onMounted(() => {
   canvasC3height.value = document.body.clientHeight
@@ -98,8 +96,8 @@ onMounted(() => {
   bodywidth.value = isPc ? document.body.clientWidth * 2 * 0.30 : document.body.clientWidth * 2
   //startVisit();
   // window.$newiframe = openiframe
-  ttsaready.value = true;
-  ttsaWork.value = false;
+  //ttsaready.value = true;
+  //ttsaWork.value = false;
 });
 
 const lv = ref();
@@ -274,16 +272,11 @@ const localPlay = (vdid: string) => {
 //     instanceTTSA.value.sendText('您好，有什么小薇可以帮到您', "pause");
 //   }
 // };
-const changemute = (val?: boolean) => {
+const changemute = () => {
   ttsaMute.value = !ttsaMute.value;
-  if (ttsaWork.value) {
-    instanceTTSA.value.mute(ttsaMute.value);
-  }
-  console.log(typeof val);
-  if (typeof val == 'boolean') {
-    transferToSoundNode.value.soundControlMute(val);
-    return
-  }
+  // if (ttsaWork.value) {
+  //   instanceTTSA.value.mute(ttsaMute.value);
+  // }
   transferToSoundNode.value.soundControlMute(ttsaMute.value);
 };
 // const sendchattomedia = (str: string, type?: string) => {
@@ -379,16 +372,16 @@ const canvasC3height = ref(0)
 //   return;
 // }
 const addWelcomeConversation = ref(false)
-const loadingover = () => {
-  ttasDomShow.value = true
-  circleLoadingShow.value = false
-  nextTick(() => {
-    addWelcomeConversation.value = true
-    nextTick(() => {
-      addWelcomeConversation.value = false
-    })
-  })
-}
+// const loadingover = () => {
+//   ttasDomShow.value = true
+//   circleLoadingShow.value = false
+//   nextTick(() => {
+//     addWelcomeConversation.value = true
+//     nextTick(() => {
+//       addWelcomeConversation.value = false
+//     })
+//   })
+// }
 const showFirstScreen = ref(true);
 const enter = () => {
   ttasDomShow.value = true;
@@ -410,46 +403,46 @@ const enter = () => {
 //   }
 // }
 
-const circleLoadingShow = ref(false);
-const cicleRate = ref(0);
+//const circleLoadingShow = ref(false);
+//const cicleRate = ref(0);
 
 const backtohome = () => {
   console.log('kefu state', store.platformInfo.connectStage)
   if (store.platformInfo.connectStage) {
     window.$closeKefu()
   }
-  if (ttsaWork.value) {
-    stopMusic();
-    ttasDomShow.value = false
-    clearInterval(ttsaInterval.value);
-    instanceTTSA.value.interrupt();
-    instanceTTSA.value.closeRoom();
+  //if (ttsaWork.value) {
+    // stopMusic();
+    // ttasDomShow.value = false
+    // clearInterval(ttsaInterval.value);
+    // instanceTTSA.value.interrupt();
+    // instanceTTSA.value.closeRoom();
     //ttsapreload.value = true
-    ttsaWork.value = false
+    //ttsaWork.value = false
     // setTimeout(() => {
     //   ttsapreload.value = false
     // }, 5000);
-    return
-  } else {
+    //return
+  //} else {
     call_client_pub("closeWebView", "");
-    instanceTTSA.value.interrupt();
-    instanceTTSA.value.closeRoom();
-  }
+    //instanceTTSA.value.interrupt();
+    //instanceTTSA.value.closeRoom();
+  //}
 };
 
 const transferToSoundNode = ref(null);
 
-const u = navigator.userAgent;
-const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-const stopMusic = () => {
-  if ((document.getElementById("ttsa")).getElementsByTagName('video').length) {
-    if (isiOS) {
-      (document.getElementById("ttsa")).getElementsByTagName('video')[0].muted = true
-    } else {
-      (document.getElementById("ttsa")).getElementsByTagName('video')[0].volume = 0
-    }
-  }
-}
+//const u = navigator.userAgent;
+//const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+// const stopMusic = () => {
+//   if ((document.getElementById("ttsa")).getElementsByTagName('video').length) {
+//     if (isiOS) {
+//       (document.getElementById("ttsa")).getElementsByTagName('video')[0].muted = true
+//     } else {
+//       (document.getElementById("ttsa")).getElementsByTagName('video')[0].volume = 0
+//     }
+//   }
+// }
 onUnmounted(() => {
 
 });
@@ -461,7 +454,7 @@ onUnmounted(() => {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin: 0px;
+  margin: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -469,15 +462,15 @@ onUnmounted(() => {
 
   #ttsa {
     position: fixed;
-    left: 0px;
-    top: 0px;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 200px;
 
     .canvasWindow {
       position: absolute;
-      top: 0%;
-      left: 0%;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
       background: url(./assets/img/appBackground.png);
@@ -487,7 +480,7 @@ onUnmounted(() => {
         width: 104%;
         z-index: 2000;
         left: -25%;
-        top: 0px;
+        top: 0;
       }
     }
 
@@ -503,8 +496,8 @@ onUnmounted(() => {
 
   .background {
     position: fixed;
-    top: 0%;
-    left: 0%;
+    top: 0;
+    left: 0;
     height: 100vh;
     width: 100vw;
     z-index: -1;
@@ -611,7 +604,7 @@ onUnmounted(() => {
           width: 30%;
           left: 2.5%;
           top: 5%;
-          bottom: 0%;
+          bottom: 0;
         }
       }
     }
