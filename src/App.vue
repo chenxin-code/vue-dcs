@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <talk-content
-        :ttsaWork="ttsaWork"
-        :fluentWelcome="addWelcomeConversation"
-        @sendchattomedia="sendchattomedia"
-        @interruptVoice="interruptVoice"
-        v-if="store.ttsaOnline"
-    ></talk-content>
+    <!--    <talk-content
+            :ttsaWork="ttsaWork"
+            :fluentWelcome="addWelcomeConversation"
+            @sendchattomedia="sendchattomedia"
+            @interruptVoice="interruptVoice"
+        ></talk-content>-->
     <div id="ttsa" v-if="ttasDomShow">
       <div class="canvasWindow" id="canvasWindow">
         <!-- 视频截图 -->
@@ -18,7 +17,6 @@
             :fluentWelcome="addWelcomeConversation"
             :bodyheight="bodyheight"
             :bodywidth="bodywidth"
-            @sendtomedia="sendchattomedia"
             @stopAllVideo="stopAllVideo"
             ref="talkRef"
         ></talk>
@@ -57,7 +55,7 @@
         @click="backtohome"
         alt=""/>
     <!--    <div class="prodtitle" v-if="!isPc">数字客户经理</div>-->
-    <div class="tips" v-show="errorTipsShow">{{ errorTips }}</div>
+    <!--    <div class="tips" v-show="errorTipsShow">{{ errorTips }}</div>-->
     <!-- <show-frame v-if="iframeShow" :url="iframeUrl" @close="closeiframe"></show-frame> -->
     <circle-loading v-if="circleLoadingShow" :progressNum="cicleRate" @loadingover="loadingover"></circle-loading>
     <firstScreen @enter="enter" v-if="showFirstScreen"/>
@@ -69,7 +67,7 @@
 
 <script lang="ts" setup>
 import {ref, onMounted, onUnmounted, nextTick, computed} from "vue";
-import TalkContent from "@/components/talkContent.vue";
+//import TalkContent from "@/components/talkContent.vue";
 import Talk from "@/components/talk.vue";
 import LocalVideo from "@/components/localVideo.vue";
 //import historyTimeSelect from "@/components/historyTimeSelect.vue";
@@ -80,9 +78,9 @@ import CircleLoading from "@/components/circleLoading.vue";
 import FirstScreen from "@/components/firstScreen.vue";
 //import gifbackground from "@/components/gifbackground/gifbackground.vue";
 import TransferToSound from "@/components/transfertosound/transferToSound.vue";
-import httpszzt from "@/api/reqszzt";
+//import httpszzt from "@/api/reqszzt";
 import {store} from "@/store/store";
-import {encryptGcm} from "@/utils/aes.js";
+//import {encryptGcm} from "@/utils/aes.js";
 // import httpszzt from "@/api/reqszzt";
 import {call_client_pub} from "@/api";
 import isPc from "@/utils/isPc.js";
@@ -102,13 +100,6 @@ onMounted(() => {
   // window.$newiframe = openiframe
   ttsaready.value = true;
   ttsaWork.value = false;
-  if (!store.ttsaOnline) {
-    return;
-  }
-  fluentinit().then(() => {
-    //ttsapreload.value = false
-  });
-  fluentsetup();
 });
 
 const lv = ref();
@@ -149,132 +140,132 @@ const localPlay = (vdid: string) => {
 //     });
 // }
 
-const fluentinit = (): any => {
-  let promise = new Promise<void>((resolve, reject) => {
-    let fluentWidth = document.body.clientWidth;
-    let fluentHeight = document.body.clientHeight;
-    // eslint-disable-next-line no-undef
-    instanceTTSA.value = new FTC_TTSA({
-      janusDebug: false,
-      container: "#ttsa",
-      width: fluentWidth,
-      height: fluentHeight,
-      // account: {
-      //   username: "husunqiang", // 用户名
-      //   app_id: "oe@njW8nseAcI(bwnqkKTPo4", // app id
-      //   app_secret: "51rnf^qot0jswGoGhtZK4CS2uhE8Qs", // app secret
-      //   role_id: "9a76667120254178b45551f5e45d2913", // role id
-      // },
-      widgetCallback: function (d) {
-        // console.log("dddddddddddddddd内容回调", d);
-      },
-      onVideoLoadedData: function () {
-        console.log("视频出现");
-        video.value = (document.getElementById("ttsa")).getElementsByTagName('video')[0]
-        video.value.style.display = 'none'
-        ctx1.value = (document.getElementById("c1")).getContext("2d")
-        ctx3.value = (document.getElementById("c3")).getContext("2d")
-        picturewidth.value = video.value.videoWidth / 1920 * bodyheight.value;
-        pictureheight.value = video.value.videoHeight / 1920 * bodyheight.value;
-        timerCallback()
-      },
-      errorCallback(error, errorType) {
-        console.log('异常具体信息', error); // 异常具体信息
-        circleLoadingShow.value = false
-        switch (errorType) {
-          case "open_error":
-            ttasDomShow.value = false;
-            ttsaWork.value = false;
-            instanceTTSA.value.closeRoom();
-            showTips('当前人数较多，请稍后再试')
-            break;
-          case "widgetSocket_error":
-            ttasDomShow.value = false;
-            ttsaWork.value = false;
-            instanceTTSA.value.closeRoom();
-            showTips('数字人连接中断，已为您切换省流模式')
-            break;
-          case "webrtcState_error":
-            ttasDomShow.value = false;
-            ttsaWork.value = false;
-            instanceTTSA.value.closeRoom();
-            showTips('数字人连接中断，已为您切换省流模式')
-            break;
-          default:
-            ttasDomShow.value = false;
-            ttsaWork.value = false;
-            instanceTTSA.value.closeRoom();
-            showTips('数字人连接中断，已为您切换省流模式')
-        }
-      },
-      server: "https://opm.tech.ccb.com",
-      appServer: "https://opm.tech.ccb.com",
-      janusServer: "https://opm.tech.ccb.com/janus",
-      config: {
-        auto_action: false,
-        fps: 24,
-        max_bitrate: 2,
-        offline: false,
-        tag: "",
-      },
-    });
-    resolve(instanceTTSA.value)
-  })
-  return promise
-};
+// const fluentinit = (): any => {
+//   let promise = new Promise<void>((resolve, reject) => {
+//     let fluentWidth = document.body.clientWidth;
+//     let fluentHeight = document.body.clientHeight;
+//     // eslint-disable-next-line no-undef
+//     instanceTTSA.value = new FTC_TTSA({
+//       janusDebug: false,
+//       container: "#ttsa",
+//       width: fluentWidth,
+//       height: fluentHeight,
+//       // account: {
+//       //   username: "husunqiang", // 用户名
+//       //   app_id: "oe@njW8nseAcI(bwnqkKTPo4", // app id
+//       //   app_secret: "51rnf^qot0jswGoGhtZK4CS2uhE8Qs", // app secret
+//       //   role_id: "9a76667120254178b45551f5e45d2913", // role id
+//       // },
+//       widgetCallback: function (d) {
+//         // console.log("dddddddddddddddd内容回调", d);
+//       },
+//       onVideoLoadedData: function () {
+//         console.log("视频出现");
+//         video.value = (document.getElementById("ttsa")).getElementsByTagName('video')[0]
+//         video.value.style.display = 'none'
+//         ctx1.value = (document.getElementById("c1")).getContext("2d")
+//         ctx3.value = (document.getElementById("c3")).getContext("2d")
+//         picturewidth.value = video.value.videoWidth / 1920 * bodyheight.value;
+//         pictureheight.value = video.value.videoHeight / 1920 * bodyheight.value;
+//         timerCallback()
+//       },
+//       errorCallback(error, errorType) {
+//         console.log('异常具体信息', error); // 异常具体信息
+//         circleLoadingShow.value = false
+//         switch (errorType) {
+//           case "open_error":
+//             ttasDomShow.value = false;
+//             ttsaWork.value = false;
+//             instanceTTSA.value.closeRoom();
+//             showTips('当前人数较多，请稍后再试')
+//             break;
+//           case "widgetSocket_error":
+//             ttasDomShow.value = false;
+//             ttsaWork.value = false;
+//             instanceTTSA.value.closeRoom();
+//             showTips('数字人连接中断，已为您切换省流模式')
+//             break;
+//           case "webrtcState_error":
+//             ttasDomShow.value = false;
+//             ttsaWork.value = false;
+//             instanceTTSA.value.closeRoom();
+//             showTips('数字人连接中断，已为您切换省流模式')
+//             break;
+//           default:
+//             ttasDomShow.value = false;
+//             ttsaWork.value = false;
+//             instanceTTSA.value.closeRoom();
+//             showTips('数字人连接中断，已为您切换省流模式')
+//         }
+//       },
+//       server: "https://opm.tech.ccb.com",
+//       appServer: "https://opm.tech.ccb.com",
+//       janusServer: "https://opm.tech.ccb.com/janus",
+//       config: {
+//         auto_action: false,
+//         fps: 24,
+//         max_bitrate: 2,
+//         offline: false,
+//         tag: "",
+//       },
+//     });
+//     resolve(instanceTTSA.value)
+//   })
+//   return promise
+// };
 
 //const ttsapreload = ref(true);
-const fluentsetup = () => {
-  if (instanceTTSA.value) {
-    circleLoadingShow.value = true
-    cicleRate.value = 99
-    let keyStr = "szzhforeignqwert";
-    let token = encryptGcm("foreign-" + new Date().getTime(), keyStr);
-    httpszzt.get(
-        process.env.VUE_APP_szzhnew + "/dh-internal/infoGenerator/createToken",
-        token
-    )
-        .then((res: any) => {
-          console.log("getttsacode-----", res);
-          let account = {
-            username: res.data.data.username, // 用户名
-            app_id: res.data.data.appId, // app id
-            access_token: res.data.data.token, // token
-            role_id: "9a76667120254178b45551f5e45d2913", // role id
-            now_time: res.data.data.ts // 符合要求的时间戳
-          }
-          instanceTTSA.value
-              .setup(account)
-              .then(() => {
-                ttsaready.value = true;
-                ttsaWork.value = true;
-                cicleRate.value = 100;
-                console.log("数字人连接成功");
-              })
-              .catch(() => {
-                ttsaready.value = true;
-                ttsaWork.value = false;
-                circleLoadingShow.value = false;
-                showTips("当前人数较多，请稍后再试");
-              });
-        })
-        .catch(() => {
-        });
-  } else {
-    fluentinit().then(() => {
-      fluentsetup();
-    })
-  }
-}
-const errorTips = ref('网络连接超时，请检查您的网络');
-const errorTipsShow = ref(false)
-const showTips = (str: string) => {
-  errorTips.value = str
-  errorTipsShow.value = true
-  setTimeout(() => {
-    errorTipsShow.value = false
-  }, 2000);
-}
+// const fluentsetup = () => {
+//   if (instanceTTSA.value) {
+//     circleLoadingShow.value = true
+//     cicleRate.value = 99
+//     let keyStr = "szzhforeignqwert";
+//     let token = encryptGcm("foreign-" + new Date().getTime(), keyStr);
+//     httpszzt.get(
+//         process.env.VUE_APP_szzhnew + "/dh-internal/infoGenerator/createToken",
+//         token
+//     )
+//         .then((res: any) => {
+//           console.log("getttsacode-----", res);
+//           let account = {
+//             username: res.data.data.username, // 用户名
+//             app_id: res.data.data.appId, // app id
+//             access_token: res.data.data.token, // token
+//             role_id: "9a76667120254178b45551f5e45d2913", // role id
+//             now_time: res.data.data.ts // 符合要求的时间戳
+//           }
+//           instanceTTSA.value
+//               .setup(account)
+//               .then(() => {
+//                 ttsaready.value = true;
+//                 ttsaWork.value = true;
+//                 cicleRate.value = 100;
+//                 console.log("数字人连接成功");
+//               })
+//               .catch(() => {
+//                 ttsaready.value = true;
+//                 ttsaWork.value = false;
+//                 circleLoadingShow.value = false;
+//                 showTips("当前人数较多，请稍后再试");
+//               });
+//         })
+//         .catch(() => {
+//         });
+//   } else {
+//     fluentinit().then(() => {
+//       fluentsetup();
+//     })
+//   }
+// }
+// const errorTips = ref('网络连接超时，请检查您的网络');
+//const errorTipsShow = ref(false)
+// const showTips = (str: string) => {
+//   errorTips.value = str
+//   errorTipsShow.value = true
+//   setTimeout(() => {
+//     errorTipsShow.value = false
+//   }, 2000);
+// }
 
 // const loadingShow = ref(true);
 // const startVisit = () => {
@@ -295,37 +286,37 @@ const changemute = (val?: boolean) => {
   }
   transferToSoundNode.value.soundControlMute(ttsaMute.value);
 };
-const sendchattomedia = (str: string, type?: string) => {
-  if (str.split('问题:<br>1.').length > 1) {
-    str = str.split('问题:<br>1.')[0] + '问题'
-  }
-  if (str.split('您还可能关注以下问题').length > 1) {
-    str = str.split('您还可能关注以下问题')[0]
-  }
-  if (str.split('您可能关注下列相关问题').length > 1) {
-    str = str.split('您可能关注下列相关问题')[0]
-  }
-  if (ttsaWork.value) {
-    let sendStr = (((((str.replace(/\s*/g, "")).replace(/(<\/?a.*?>)/g, '')).replace(/(<\/?img.*?>)/g, '')).replace(/(<\/?font.*?>)/g, '')).replace(/(<\/?A.*?>)/g, '')).replace(/(<\/?div.*?>)/g, '').replace(/(<\/?span.*?>)/g, "");
-    sendStr = sendStr.replaceAll('✔', ',')
-    console.log(87777, sendStr);
-    instanceTTSA.value.interrupt();
-    instanceTTSA.value.sendText(sendStr, "pause");
-  } else {
-    if (type == "product") {
-      let sendStr = (((((str.replace(/\s*/g, "")).replace(/(<\/?a.*?>)/g, '')).replace(/(<\/?img.*?>)/g, '')).replace(/(<\/?font.*?>)/g, '')).replace(/(<\/?A.*?>)/g, '')).replace(/(<\/?div.*?>)/g, '')
-      sendStr = sendStr.replaceAll('✔', ',')
-      console.log('ttsound', sendStr);
-      transferToSoundNode.value.playSound(sendStr);
-    }
-  }
-};
-const interruptVoice = () => {
-  if (ttsaWork.value) {
-    instanceTTSA.value.interrupt();
-  }
-  transferToSoundNode.value.stopSound();
-}
+// const sendchattomedia = (str: string, type?: string) => {
+//   if (str.split('问题:<br>1.').length > 1) {
+//     str = str.split('问题:<br>1.')[0] + '问题'
+//   }
+//   if (str.split('您还可能关注以下问题').length > 1) {
+//     str = str.split('您还可能关注以下问题')[0]
+//   }
+//   if (str.split('您可能关注下列相关问题').length > 1) {
+//     str = str.split('您可能关注下列相关问题')[0]
+//   }
+//   if (ttsaWork.value) {
+//     let sendStr = (((((str.replace(/\s*/g, "")).replace(/(<\/?a.*?>)/g, '')).replace(/(<\/?img.*?>)/g, '')).replace(/(<\/?font.*?>)/g, '')).replace(/(<\/?A.*?>)/g, '')).replace(/(<\/?div.*?>)/g, '').replace(/(<\/?span.*?>)/g, "");
+//     sendStr = sendStr.replaceAll('✔', ',')
+//     console.log(87777, sendStr);
+//     instanceTTSA.value.interrupt();
+//     instanceTTSA.value.sendText(sendStr, "pause");
+//   } else {
+//     if (type == "product") {
+//       let sendStr = (((((str.replace(/\s*/g, "")).replace(/(<\/?a.*?>)/g, '')).replace(/(<\/?img.*?>)/g, '')).replace(/(<\/?font.*?>)/g, '')).replace(/(<\/?A.*?>)/g, '')).replace(/(<\/?div.*?>)/g, '')
+//       sendStr = sendStr.replaceAll('✔', ',')
+//       console.log('ttsound', sendStr);
+//       transferToSoundNode.value.playSound(sendStr);
+//     }
+//   }
+// };
+// const interruptVoice = () => {
+//   if (ttsaWork.value) {
+//     instanceTTSA.value.interrupt();
+//   }
+//   transferToSoundNode.value.stopSound();
+// }
 
 const changeSizeWindowShow = ref(false);
 const ChangeSizeSwitch = () => {
@@ -352,41 +343,41 @@ const ChangeSizeSwitch = () => {
 
 const bodywidth = ref(0)
 const bodyheight = ref(0)
-const ctx1 = ref('');
-const ctx3 = ref('');
+//const ctx1 = ref('');
+//const ctx3 = ref('');
 const canvasC3height = ref(0)
-const video = ref('');
-const picturewidth = ref(0);
-const pictureheight = ref(0);
-const timerCallback = () => {
-  if (!ttsaWork.value || !ttasDomShow.value) {
-    setTimeout(function () {
-      timerCallback();
-    }, 1000 / 24);
-    return;
-  }
-  computeFrame();
-  setTimeout(function () {
-    timerCallback();
-  }, 1000 / 24);
-}
-const computeFrame = () => {
-  ctx1.value.drawImage(video.value, 0, 0, picturewidth.value, pictureheight.value);
-  let frame = ctx1.value.getImageData((video.value.videoWidth / 1920 * bodyheight.value - bodywidth.value) / 2, 0, picturewidth.value, pictureheight.value);
-  let l = frame.data.length / 4;
-
-  for (let i = 0; i < l; i++) {
-    let r = frame.data[i * 4 + 0];
-    let g = frame.data[i * 4 + 1];
-    let b = frame.data[i * 4 + 2];
-    //rgb(8 204 4)
-    if (r < 150 && g > 140 && b < 150) {
-      frame.data[i * 4 + 3] = 0;
-    }
-  }
-  ctx3.value.putImageData(frame, 0, 0);
-  return;
-}
+//const video = ref('');
+//const picturewidth = ref(0);
+//const pictureheight = ref(0);
+// const timerCallback = () => {
+//   if (!ttsaWork.value || !ttasDomShow.value) {
+//     setTimeout(function () {
+//       timerCallback();
+//     }, 1000 / 24);
+//     return;
+//   }
+//   computeFrame();
+//   setTimeout(function () {
+//     timerCallback();
+//   }, 1000 / 24);
+// }
+// const computeFrame = () => {
+//   ctx1.value.drawImage(video.value, 0, 0, picturewidth.value, pictureheight.value);
+//   let frame = ctx1.value.getImageData((video.value.videoWidth / 1920 * bodyheight.value - bodywidth.value) / 2, 0, picturewidth.value, pictureheight.value);
+//   let l = frame.data.length / 4;
+//
+//   for (let i = 0; i < l; i++) {
+//     let r = frame.data[i * 4 + 0];
+//     let g = frame.data[i * 4 + 1];
+//     let b = frame.data[i * 4 + 2];
+//     //rgb(8 204 4)
+//     if (r < 150 && g > 140 && b < 150) {
+//       frame.data[i * 4 + 3] = 0;
+//     }
+//   }
+//   ctx3.value.putImageData(frame, 0, 0);
+//   return;
+// }
 const addWelcomeConversation = ref(false)
 const loadingover = () => {
   ttasDomShow.value = true
@@ -460,10 +451,7 @@ const stopMusic = () => {
   }
 }
 onUnmounted(() => {
-  if (!store.ttsaOnline) {
-    return;
-  }
-  instanceTTSA.value.closeRoom();
+
 });
 </script>
 

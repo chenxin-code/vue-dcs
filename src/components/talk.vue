@@ -6,7 +6,6 @@
           :bIndex="bIndex"
           v-for="(bItem,bIndex) in msgData"
           :key="bIndex"
-          @sendtomedia="sendtomedia"
           @localPlay="localPlay"
           @reply="reply"
           @scrollBarTo="scrollBarTo"
@@ -253,14 +252,8 @@ const picturewidth = ref(0);
 const pictureheight = ref(0);
 
 const emits = defineEmits([
-  'sendtomedia',
   'stopAllVideo',
 ]);
-
-//传给ttsa播报
-const sendtomedia = (str: string) => {
-  emits('sendtomedia', str);
-};
 
 //本地播放
 const localPlay = (vdid: string) => {

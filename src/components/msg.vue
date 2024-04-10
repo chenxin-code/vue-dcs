@@ -71,7 +71,6 @@ watch(() => props.msgData, () => {
 })
 
 const emits = defineEmits([
-  'sendtomedia',
   'reply',
   'localPlay',
   'scrollBarTo',
@@ -82,12 +81,8 @@ const emits = defineEmits([
 
 const doWay = (o: { msg: string; vdid: string; }) => {
   console.log('doWay:  msg ------>', o.msg, ' vdid ------>', o.vdid);
-  if (store.ttsaOnline) {
-    emits('sendtomedia', o.msg);
-  } else {
-    if (o.vdid) {
-      emits('localPlay', o.vdid);
-    }
+  if (o.vdid) {
+    emits('localPlay', o.vdid);
   }
 };
 
