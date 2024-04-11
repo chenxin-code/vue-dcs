@@ -279,6 +279,7 @@ const localPlay = (vdid: string) => {
       console.log('ctx1', ctx1.value, 'ctx3', ctx3.value);
       picturewidth.value = video.value.videoWidth / 1920 * props.bodyheight;
       pictureheight.value = video.value.videoHeight / 1920 * props.bodyheight;
+      console.log('picturewidth', picturewidth.value, 'pictureheight', pictureheight.value);
       computeFrame();
       render();
     }).catch((e: never) => {

@@ -5,25 +5,15 @@
       <img class="ringin" src="@/assets/img/cicleloadingringin.png" alt=""/>
       <img class="ringout" src="@/assets/img/cicleloadingringout.png" alt=""/>
       <div class="msg">我是小微，您的专属助理。我将为您提供贴心的服务帮助。</div>
-      <button @click="enter">立即进入</button>
+      <button @click="enter()">立即进入</button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {defineEmits, ref, defineProps, onMounted, computed} from "vue";
+import {defineEmits} from "vue";
 
-interface Inprops {
-
-}
-
-const props = defineProps<Inprops>();
 const emit = defineEmits(["enter"]);
-
-onMounted(() => {
-
-});
-
 const enter = () => {
   emit("enter");
 };
@@ -37,7 +27,8 @@ const enter = () => {
   height: 100vh;
   width: 100vw;
   z-index: 10;
-  background: url(./../assets/img/appBackground.png);
+  //background: url(./../assets/img/appBackground.png);
+  background: linear-gradient(to bottom, lightskyblue, rgba(255, 255, 255, 1));
 
   .middle-box {
     position: absolute;
