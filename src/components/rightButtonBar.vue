@@ -5,8 +5,8 @@
       <div class="name">字体调整</div>
     </div>
     <div class="buttonWithText">
-      <img src="@/assets/img/ttsaVoiceBtn.png" @click="changeMute" v-show="!props.mute" alt=""/>
-      <img src="@/assets/img/ttsaVoiceBtnClose.png" @click="changeMute" v-show="props.mute" alt=""/>
+      <img src="@/assets/img/ttsaVoiceBtn.png" @click="changeMuted" v-show="!props.muted" alt=""/>
+      <img src="@/assets/img/ttsaVoiceBtnClose.png" @click="changeMuted" v-show="props.muted" alt=""/>
       <div class="name">音量</div>
     </div>
   </div>
@@ -16,14 +16,14 @@
 import {defineEmits, defineProps} from "vue";
 
 interface Inprops {
-  mute: boolean
+  muted: boolean
 }
 
 const props = defineProps<Inprops>();
-const changeMute = () => {
-  emit("changemute");
+const changeMuted = () => {
+  emit("changeMuted");
 };
-const emit = defineEmits(["changemute", "showChangeSize"]);
+const emit = defineEmits(["changeMuted", "showChangeSize"]);
 const showChangeSize = () => {
   emit("showChangeSize");
 };

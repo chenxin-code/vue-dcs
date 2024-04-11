@@ -1,8 +1,8 @@
 <template>
-  <video src="@/assets/video/wait.webm" id="wait" style="display: none; width: 100%; height: 100%;" controls
+  <video src="@/assets/video/wait.webm" id="wait" style="display: none; width: 100%; height: 100%;" controls :muted="muted"
          loop></video>
   <video :src="require('@/assets/video/'+item.name+'.webm')" :id="item.id"
-         style="display: none; width: 100%; height: 100%;" controls
+         style="display: none; width: 100%; height: 100%;" controls :muted="muted"
          v-for="(item,index) in videos"
          :key="index"
          @ended="ended"
@@ -32,6 +32,7 @@ const videos = ref([
   {id: 'sp17', name: 'sp17'},
   {id: 'sp18', name: 'sp18'},
 ]);
+const muted = ref(false);
 
 const emits = defineEmits([
   'localPlay',
@@ -50,8 +51,13 @@ const stopAllVideo = () => {
   });
 };
 
+const changeMuted = (val: boolean) => {
+  muted.value = val;
+};
+
 defineExpose({
   stopAllVideo,
+  changeMuted,
 });
 
 </script>

@@ -38,9 +38,9 @@
       :ttsaready="ttsaready"
     ></loading> -->
     <right-button-bar
-        @changemute="changemute"
+        @changeMuted="changeMuted"
         @showChangeSize="ChangeSizeSwitch"
-        :mute="ttsaMute"
+        :muted="muted"
     ></right-button-bar>
     <font-size-change
         v-show="changeSizeWindowShow"
@@ -57,7 +57,7 @@
     <!-- <show-frame v-if="iframeShow" :url="iframeUrl" @close="closeiframe"></show-frame> -->
 <!--    <circle-loading v-if="circleLoadingShow" :progressNum="cicleRate" @loadingover="loadingover"></circle-loading>-->
     <firstScreen @enter="enter" v-if="showFirstScreen"/>
-    <transfer-to-sound ref="transferToSoundNode"></transfer-to-sound>
+<!--    <transfer-to-sound ref="transferToSoundNode"></transfer-to-sound>-->
     <!--      <disconnectKefu ref="onDisconnectKefu" v-show="false"/>
             <history-time-select v-if="showHistoryDate" @close="closeHistoryCalender"></history-time-select>-->
   </div>
@@ -75,7 +75,7 @@ import FontSizeChange from "@/components/fontSizeChange.vue";
 //import CircleLoading from "@/components/circleLoading.vue";
 import FirstScreen from "@/components/firstScreen.vue";
 import Gifbackground from "@/components/gifbackground/gifbackground.vue";
-import TransferToSound from "@/components/transfertosound/transferToSound.vue";
+//import TransferToSound from "@/components/transfertosound/transferToSound.vue";
 //import httpszzt from "@/api/reqszzt";
 import {store} from "@/store/store";
 //import {encryptGcm} from "@/utils/aes.js";
@@ -86,7 +86,7 @@ import isPc from "@/utils/isPc.js";
 //const instanceTTSA = ref("");
 //const ttsaready = ref(false);
 //const ttsaWork = ref(false);
-const ttsaMute = ref(false);
+const muted = ref(false);
 const ttasDomShow = ref(false);
 //const ttsaInterval = ref('');
 
@@ -272,12 +272,14 @@ const localPlay = (vdid: string) => {
 //     instanceTTSA.value.sendText('您好，有什么小薇可以帮到您', "pause");
 //   }
 // };
-const changemute = () => {
-  ttsaMute.value = !ttsaMute.value;
+const changeMuted = () => {
+  muted.value = !muted.value;
+  console.log('muted', muted.value);
+  lv.value.changeMuted(muted.value);
   // if (ttsaWork.value) {
-  //   instanceTTSA.value.mute(ttsaMute.value);
+  //   instanceTTSA.value.mute(muted.value);
   // }
-  transferToSoundNode.value.soundControlMute(ttsaMute.value);
+  //transferToSoundNode.value.soundControlMute(muted.value);
 };
 // const sendchattomedia = (str: string, type?: string) => {
 //   if (str.split('问题:<br>1.').length > 1) {
@@ -430,7 +432,7 @@ const backtohome = () => {
   //}
 };
 
-const transferToSoundNode = ref(null);
+//const transferToSoundNode = ref(null);
 
 //const u = navigator.userAgent;
 //const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
