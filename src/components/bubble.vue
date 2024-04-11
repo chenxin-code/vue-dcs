@@ -24,7 +24,7 @@ const props = defineProps<Inprops>();
   min-width: 20%;
   max-width: 35%;
   border-radius: 2vw;
-  background-color: #fff;
+  background: rgba(255, 255, 255, 0.5);
   font-size: 0.7rem;
   text-align: center;
   padding: 0.5rem 0.9rem;
@@ -42,7 +42,7 @@ const props = defineProps<Inprops>();
   &::after {
     content: '';
     border: 0.5rem solid #ffffff00;
-    border-right: 0.5rem solid #fff;
+    border-right: 0.3rem solid rgba(255, 255, 255, 0.5);
     transform: translate(25%, -50%);
     position: absolute;
     top: 50%;
