@@ -193,7 +193,7 @@ const options: TypedOptions = {
     text-align: left;
 
     > span {
-      color: red;
+      color: rgba(35, 108, 255, 1);
     }
   }
 

@@ -43,7 +43,7 @@ const props = defineProps<Inprops>();
     content: '';
     border: 0.5rem solid #ffffff00;
     border-right: 0.5rem solid #fff;
-    transform: translateY(-50%);
+    transform: translate(25%, -50%);
     position: absolute;
     top: 50%;
     left: -1rem;
