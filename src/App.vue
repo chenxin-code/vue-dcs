@@ -475,7 +475,7 @@ onUnmounted(() => {
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: url(./assets/img/appBackground.png);
+      //background: url(./assets/img/appBackground.png);
 
       #c3 {
         position: absolute;
@@ -503,7 +503,7 @@ onUnmounted(() => {
     height: 100vh;
     width: 100vw;
     z-index: -1;
-    background: url(./assets/img/appBackground.png);
+    //background: url(./assets/img/appBackground.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
 
@@ -568,6 +568,7 @@ onUnmounted(() => {
     width: 4%;
     object-fit: contain;
     z-index: 18;
+    cursor: pointer;
   }
 
   .prodtitle {
@@ -612,7 +613,7 @@ onUnmounted(() => {
     }
 
     .background {
-      background: url(./assets/img/appBackground.png);
+      //background: url(./assets/img/appBackground.png);
       background-size: 100% 100%;
       background-repeat: no-repeat;
 

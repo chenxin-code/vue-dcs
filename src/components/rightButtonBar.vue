@@ -137,6 +137,9 @@ const showChangeSize = () => {
   .buttonWithText {
     // margin-top: 5px;
     margin-bottom: 18px;
+    > img {
+      cursor: pointer;
+    }
   }
 }
 
