@@ -108,7 +108,7 @@
 </template>
 
 <script lang="ts" setup>
-import {defineEmits, onMounted, ref, computed, watch} from "vue";
+import {defineEmits, ref} from "vue";
 
 const emit = defineEmits(["closePopup", "inputFocus", "noChecked", "isChecked", "confirmHandle"]);
 const closePopup = () => {
@@ -143,8 +143,6 @@ const showAllCard = () => {
     showAllCardBox.value = !showAllCardBox.value;
   }
 };
-onMounted(() => {
-});
 
 </script>
 

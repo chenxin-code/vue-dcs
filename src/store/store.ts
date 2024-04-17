@@ -1,5 +1,4 @@
-import {reactive, ref} from "vue";
-//import {getQueryVariable} from "@/utils/utils.js";
+import {reactive} from "vue";
 
 interface platformInfo {
     platform?: any;
@@ -16,7 +15,6 @@ interface platformInfo {
     cst_info?: any;
     custType2?: any;//人工坐席的客户渠道号
     hadCusInfo?: any;
-    connectStage?: boolean;
     userName?: string;
     isLogin?: boolean;
     fcejUserId?: string;
@@ -41,7 +39,6 @@ const store = {
         feichiez: false,
         historyRecord: process.env.NODE_ENV === "development",
         auth_code: false,
-        connectStage: false,
         userName: '',
         isLogin: false,
         fcejUserId: '',

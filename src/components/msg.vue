@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, defineEmits, defineProps, onMounted, watch, nextTick, defineExpose} from "vue";
+import {ref, defineEmits, defineProps, watch} from "vue";
 import {store} from "@/store/store";
 import {TypedComponent, TypedOptions} from "typed-vue3";
 
@@ -168,26 +168,6 @@ const options: TypedOptions = {
     background: linear-gradient(to right, rgba(35, 107, 255, 0.5), rgba(192, 21, 217, 0.5));
   }
 
-  //&:before{
-  //  content: '';
-  //  width: 0;
-  //  height: 0;
-  //  border: 20px solid;
-  //  position: absolute;
-  //  bottom: -41px;
-  //  left: 80px;
-  //  border-color:  #62BBF9 transparent transparent;
-  //}
-  //&:after{
-  //  content: '';
-  //  width: 0;
-  //  height: 0;
-  //  border: 20px solid;
-  //  position: absolute;
-  //  bottom: -35px;
-  //  left: 80px;
-  //  border-color:  #fff transparent transparent;
-  //}
   /deep/ .msg {
     padding: 0.5rem 1rem;
     text-align: left;
