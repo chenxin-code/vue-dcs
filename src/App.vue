@@ -27,12 +27,6 @@
         v-show="changeSizeWindowShow"
         @close="ChangeSizeSwitch"
     ></font-size-change>
-    <img
-        id="backtohomeBtn"
-        class="backtohomeBtn"
-        src="@/assets/img/backtohome.png"
-        @click="backtohome"
-        alt=""/>
     <firstScreen @enter="enter" v-if="showFirstScreen"/>
   </div>
 </template>
@@ -45,7 +39,6 @@ import RightButtonBar from "@/components/rightButtonBar.vue";
 import FontSizeChange from "@/components/fontSizeChange.vue";
 import FirstScreen from "@/components/firstScreen.vue";
 import Gifbackground from "@/components/gifbackground/gifbackground.vue";
-import {call_client_pub} from "@/api/index.js";
 import isPc from "@/utils/isPc.js";
 
 const muted = ref(false);
@@ -89,10 +82,6 @@ const enter = () => {
   nextTick(() => {
     addWelcomeConversation.value = true;
   });
-};
-
-const backtohome = () => {
-  call_client_pub("closeWebView", "");
 };
 </script>
 
@@ -141,16 +130,6 @@ const backtohome = () => {
       display: none;
     }
   }
-
-  .backtohomeBtn {
-    position: fixed;
-    left: 4%;
-    top: 3.2%;
-    width: 4%;
-    object-fit: contain;
-    z-index: 18;
-    cursor: pointer;
-  }
 }
 
 @media screen and (min-width: 600px) {
@@ -164,12 +143,6 @@ const backtohome = () => {
           bottom: 0;
         }
       }
-    }
-
-    .backtohomeBtn {
-      left: 1.4%;
-      top: 1.6%;
-      width: 1.6%;
     }
   }
 }
