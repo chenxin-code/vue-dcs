@@ -1,24 +1,18 @@
 {
-  "name": "fluentmediav2",
+  "name": "vue-dcs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:test": "vue-cli-service build --mode test",
-    "build:pl4": "vue-cli-service build --mode pl4",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^1.3.0",
     "core-js": "^3.6.5",
-    "crypto-js": "^4.1.1",
-    "howler": "^2.2.3",
-    "lodash": "^4.17.21",
     "typed-vue3": "0.0.2",
     "vant": "^3.6.12",
-    "vue": "^3.0.0",
-    "vue-video-player": "^5.0.2"
+    "vue": "^3.0.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.18.0",
