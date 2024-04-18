@@ -1,80 +1,36 @@
 'use strict'
 const path = require('path')
-const  Timestamp = new Date().getTime();
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
+const Timestamp = new Date().getTime();
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
-
-// vue.config.js 配置说明
-//官方vue.config.js 参考文档 https://cli.vuejs.org/zh/config/#css-loaderoptions
-// 这里只列一部分，具体配置参考文档
 module.exports = {
-  // 部署生产环境和开发环境下的URL。
-  // 默认情况下，Vue CLI 会假设你的应用是被部署在一个域名的根路径上
-  // 例如 https://www.ruoyi.vip/。如果应用被部署在一个子路径上，你就需要用这个选项指定这个子路径。例如，如果你的应用被部署在 https://www.ruoyi.vip/admin/，则设置 baseUrl 为 /admin/。
-  publicPath: process.env.NODE_ENV !== "development" ? "./" : "/",
-  // 是否开启eslint保存检测，有效值：ture | false | 'error'
-  lintOnSave: process.env.NODE_ENV === 'development',
+  publicPath: "",
   // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建。
   productionSourceMap: false,
-  // 默认情况下，生成的静态资源在它们的文件名中包含了 hash 以便更好的控制缓存。然而，这也要求 index 的 HTML 是被 Vue CLI 自动生成的。如果你无法使用 Vue CLI 生成的 index HTML，你可以通过将这个选项设为 false 来关闭文件名哈希
-  //通过将这个选项设为 false 来关闭文件名哈希
-  filenameHashing: true,
-  // webpack-dev-server 相关配置
+  // 生成的静态资源在它们的文件名中包含了 hash 以便更好的控制缓存。
+  filenameHashing: true, // 默认 true
   runtimeCompiler: true,
-
   pages: {
     index: {
       entry: 'src/main.ts',
       template: 'public/index.html',
     },
   },
-
   configureWebpack: {
-    // plugins: [
-    //   // new BundleAnalyzerPlugin()
-    //   // copy custom static assets
-    //   new CopyWebpackPlugin([
-    //     {
-    //       from: path.resolve(__dirname, './static'),
-    //       to: "static",
-    //       ignore: ['.*']
-    //     }
-    //   ]),
-    // ],
     output: {
       filename: 'js/[name].'+Timestamp+'.js',
       chunkFilename: 'js/[name].'+Timestamp+'.js'
    },
-
     resolve: {
       alias: {
         '@': resolve('src'),
       }
     }
   },
-
   devServer: {
-    proxy: {
-      '/api': {
-        target: 'https://vchat3.ccb.com/dwr/domainNameQuery.do',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite:{
-          '^/api':'/'
-      }
-      },
-      '/xiamenapi': {
-        target: 'https://128.192.179.125:8080',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite:{
-          '^/xiamenapi':'/'
-      }
-      },
-    },
-    // https: true,
+    port: 888, // 项目运行的端口号
+    open: true, // 是否自动打开浏览器页面
   },
-
+  lintOnSave: true,
 }

@@ -1,4 +1,4 @@
-# fluentmedia
+# vue-dcs
 
 ## Project setup
 ```
