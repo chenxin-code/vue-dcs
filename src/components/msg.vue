@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 import {ref, defineEmits, defineProps, watch} from "vue";
-import {store} from "@/store/store";
+import {store} from "@/store";
 import {TypedComponent, TypedOptions} from "typed-vue3";
 
 const op = ref(false);
