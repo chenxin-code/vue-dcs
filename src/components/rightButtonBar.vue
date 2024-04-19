@@ -5,8 +5,8 @@
       <div class="name">字体调整</div>
     </div>
     <div class="buttonWithText">
-      <img src="@/assets/img/ttsaVoiceBtn.png" @click="changeMuted" v-show="!props.muted" alt=""/>
-      <img src="@/assets/img/ttsaVoiceBtnClose.png" @click="changeMuted" v-show="props.muted" alt=""/>
+      <img src="@/assets/img/voiceBtn.png" @click="changeMuted" v-show="!props.muted" alt=""/>
+      <img src="@/assets/img/voiceBtnClose.png" @click="changeMuted" v-show="props.muted" alt=""/>
       <div class="name">音量</div>
     </div>
   </div>

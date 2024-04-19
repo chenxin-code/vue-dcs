@@ -69,7 +69,7 @@ const closeWindow = () => {
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .changeFontSizeWindow {
   position: fixed;
   left: 0;

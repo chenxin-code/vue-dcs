@@ -11,7 +11,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .bg {
   position: absolute;
   left: -2vw;

@@ -4,7 +4,7 @@
       <div class="box1">
         <van-icon name="arrow-left" color="rgba(121, 121, 121, 1)" size="1.1rem" @click="showConfirm = false"
                   v-show="showConfirm"/>
-        <img src="@/assets/img/intoKefu.png" alt=""/>
+        <img src="@/assets/img/ccbLogo.png" alt=""/>
         <span class="title" :class="{'show-all-card': showAllCardBox}" @click="showAllCard()">建设银行信用卡（3298）</span>
         <van-icon name="cross" color="rgba(121, 121, 121, 1)" size="1.1rem" @click="closePopup()"/>
         <div class="all-card-box" v-show="showAllCardBox">

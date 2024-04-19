@@ -1,9 +1,9 @@
 <template>
   <div class="first-screen">
     <div class="middle-box">
-      <img class="xiaowei" src="@/assets/img/appBackgroundicon.png" alt=""/>
-      <img class="ringin" src="@/assets/img/cicleloadingringin.png" alt=""/>
-      <img class="ringout" src="@/assets/img/cicleloadingringout.png" alt=""/>
+      <img class="xiaowei" src="@/assets/img/head.png" alt=""/>
+      <img class="ringin" src="@/assets/img/ringin.png" alt=""/>
+      <img class="ringout" src="@/assets/img/ringout.png" alt=""/>
       <div class="msg">我是小微，您的专属助理。我将为您提供贴心的服务帮助。</div>
       <button @click="enter()">立即进入</button>
     </div>
@@ -19,7 +19,7 @@ const enter = () => {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .first-screen {
   position: fixed;
   left: 0;
