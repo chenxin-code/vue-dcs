@@ -6,7 +6,7 @@
         <canvas id="c1" :width="bodywidth" :height="bodyheight" style="display:none;"></canvas>
         <!-- 贴图至背景图上方 -->
         <canvas id="c3" :width="bodywidth" :height="bodyheight" :style="{height:canvasC3height+'px'}"></canvas>
-        <gifbackground/>
+        <background/>
         <talk
             :fluentWelcome="addWelcomeConversation"
             :bodyheight="bodyheight"
@@ -38,7 +38,7 @@ import LocalVideo from "@/components/localVideo.vue";
 import RightButtonBar from "@/components/rightButtonBar.vue";
 import FontSizeChange from "@/components/fontSizeChange.vue";
 import FirstScreen from "@/components/firstScreen.vue";
-import Gifbackground from "@/components/gifbackground.vue";
+import Background from "@/components/background.vue";
 import isPc from "@/utils/isPc.js";
 
 const muted = ref(false);
