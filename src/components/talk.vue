@@ -35,10 +35,17 @@ import Bubble from "./bubble.vue";
 import demoTalkTree from '@/demoTalkTree.ts';
 import QA from '@/QA.json';
 import CreditCardPopup from "@/components/popup/creditCard.vue";
-import {store} from "@/store/store";
+import {store} from "@/store";
+
+const msgData = ref([]);
 
 onMounted(() => {
-
+  if (store.useDemoTalk) {
+    msgData.value = demoTalkTree;
+  } else {
+    // 3种情况   myCreditCardExceeds300 myCreditCardLess300 noCreditCard
+    sendQuestion('myCreditCardExceeds300');
+  }
 });
 
 const sendQuestion = (question: string) => {
@@ -158,16 +165,6 @@ const reply = (reply: { title: string; vdid: string; msg: string; btn: never; })
 const scrollBarTo = (offsetTop: number) => {
   talkBox.value.scrollTop = offsetTop;
 };
-
-const msgData = ref([]);
-if (!store.useDemoTalk) {
-  //本来写在onMounted里
-  setTimeout(() => {
-    sendQuestion('myCreditCardExceeds300');// myCreditCardExceeds300 myCreditCardLess300 noCreditCard
-  }, 2000);
-} else {
-  msgData.value = demoTalkTree;
-}
 
 interface Inprops {
   fluentWelcome: boolean;

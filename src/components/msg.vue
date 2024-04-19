@@ -87,11 +87,7 @@ const doWay = (o: { msg: string; vdid: string; }) => {
 };
 
 const clickAction = (btnItem: { questionId: string; reply: { msg: string; vdid: string; }; popup: string; }) => {
-  if (!store.useDemoTalk) {
-    if (btnItem.questionId) {
-      emits('sendQuestion', btnItem.questionId);
-    }
-  } else {
+  if (store.useDemoTalk) {
     if (btnItem.reply) {
       console.log('回复', btnItem.reply);
       emits('reply', btnItem.reply);
@@ -99,6 +95,10 @@ const clickAction = (btnItem: { questionId: string; reply: { msg: string; vdid: 
     }
     if (btnItem.popup) {
       emits('openPopup', btnItem.popup);
+    }
+  } else {
+    if (btnItem.questionId) {
+      emits('sendQuestion', btnItem.questionId);
     }
   }
 };
