@@ -34,7 +34,7 @@ import Msg from "./msg.vue";
 import Bubble from "./bubble.vue";
 import demoTalkTree from '@/demoTalkTree.ts';
 import QA from '@/QA.json';
-import CreditCardPopup from "@/components/popup/creditCard.vue";
+import CreditCardPopup from "@/components/creditCardPopup.vue";
 import {store} from "@/store";
 
 const msgData = ref([]);
