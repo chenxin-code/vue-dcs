@@ -38,7 +38,7 @@ import LocalVideo from "@/components/localVideo.vue";
 import RightButtonBar from "@/components/rightButtonBar.vue";
 import FontSizeChange from "@/components/fontSizeChange.vue";
 import FirstScreen from "@/components/firstScreen.vue";
-import Gifbackground from "@/components/gifbackground/gifbackground.vue";
+import Gifbackground from "@/components/gifbackground.vue";
 import isPc from "@/utils/isPc.js";
 
 const muted = ref(false);

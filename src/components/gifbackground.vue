@@ -1,6 +1,5 @@
 <template>
-  <div class="gifWindow" :style="{height:gifWindowheight+'px'}">
-  </div>
+  <div class="gifWindow" :style="{height:gifWindowheight+'px'}"/>
 </template>
 
 <script lang="ts" setup>
@@ -20,7 +19,7 @@ onMounted(() => {
   width: 104vw;
   height: 100vh;
   z-index: 100;
-  background: url(./../../assets/img/runningbackground.jpg);
+  background: url(./../assets/img/runningbackground.jpg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -33,7 +32,7 @@ onMounted(() => {
     width: 100vw;
     height: 100vh !important;
     z-index: 100;
-    background: url(./../../assets/img/runningbackground_pc.png);
+    background: url(./../assets/img/runningbackground_pc.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
   }
