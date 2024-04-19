@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --mode development",
     "lint": "vue-cli-service lint",
-    "fix": "eslint src/**/*.*  --fix"
+    "fix": "eslint src/**/*.*  --fix",
+    "rimrafNodeModules": "rimraf node_modules"
   },
   "dependencies": {
     "core-js": "^3.6.5",
