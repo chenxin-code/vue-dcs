@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, onMounted} from "vue";
+import {ref, onMounted} from 'vue';
 
 const bgHeight = ref(0);
 onMounted(() => {

@@ -32,22 +32,22 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, onMounted, nextTick} from "vue";
-import Talk from "@/components/talk.vue";
-import LocalVideo from "@/components/localVideo.vue";
-import RightButtonBar from "@/components/rightButtonBar.vue";
-import FontSizeChange from "@/components/fontSizeChange.vue";
-import FirstScreen from "@/components/firstScreen.vue";
-import Background from "@/components/background.vue";
-import isPc from "@/utils/isPc.js";
+import {ref, onMounted, nextTick} from 'vue';
+import Talk from '@/components/talk.vue';
+import LocalVideo from '@/components/localVideo.vue';
+import RightButtonBar from '@/components/rightButtonBar.vue';
+import FontSizeChange from '@/components/fontSizeChange.vue';
+import FirstScreen from '@/components/firstScreen.vue';
+import Background from '@/components/background.vue';
+import isPc from '@/utils/isPc.js';
 
 const muted = ref(false);
 const ttasDomShow = ref(false);
 
 onMounted(() => {
-  canvasC3height.value = document.body.clientHeight
-  bodyheight.value = document.body.clientHeight * 2
-  bodywidth.value = isPc ? document.body.clientWidth * 2 * 0.30 : document.body.clientWidth * 2
+  canvasC3height.value = document.body.clientHeight;
+  bodyheight.value = document.body.clientHeight * 2;
+  bodywidth.value = isPc ? document.body.clientWidth * 2 * 0.30 : document.body.clientWidth * 2;
 });
 
 const lv = ref();
@@ -71,10 +71,10 @@ const ChangeSizeSwitch = () => {
   changeSizeWindowShow.value = !changeSizeWindowShow.value;
 };
 
-const bodywidth = ref(0)
-const bodyheight = ref(0)
-const canvasC3height = ref(0)
-const addWelcomeConversation = ref(false)
+const bodywidth = ref(0);
+const bodyheight = ref(0);
+const canvasC3height = ref(0);
+const addWelcomeConversation = ref(false);
 const showFirstScreen = ref(true);
 const enter = () => {
   ttasDomShow.value = true;

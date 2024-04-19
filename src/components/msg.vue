@@ -18,9 +18,9 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, defineEmits, defineProps, watch} from "vue";
-import {store} from "@/store";
-import {TypedComponent, TypedOptions} from "typed-vue3";
+import {ref, defineEmits, defineProps, watch} from 'vue';
+import {store} from '@/store';
+import {TypedComponent, TypedOptions} from 'typed-vue3';
 
 const op = ref(false);
 setTimeout(() => {
@@ -68,7 +68,7 @@ watch(
 
 watch(() => props.msgData, () => {
   doWay(props.bItem);
-})
+});
 
 const emits = defineEmits([
   'reply',
@@ -106,7 +106,7 @@ const clickAction = (btnItem: { questionId: string; reply: { msg: string; vdid: 
 const options: TypedOptions = {
   strings: [props.bItem.msg],
   typeSpeed: 0,
-  //backSpeed: 0,
+  // backSpeed: 0,
   cursorChar: '',
   onComplete(self) {
     console.log('onComplete', self);

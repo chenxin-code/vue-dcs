@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, defineProps} from "vue";
+import {ref, defineProps} from 'vue';
 
 const op = ref(false);
 setTimeout(() => {

@@ -29,13 +29,13 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, defineEmits, onMounted, nextTick, defineProps, defineExpose} from "vue";
-import Msg from "./msg.vue";
-import Bubble from "./bubble.vue";
+import {ref, defineEmits, onMounted, nextTick, defineProps, defineExpose} from 'vue';
+import Msg from './msg.vue';
+import Bubble from './bubble.vue';
 import demoTalkTree from '@/demoTalkTree.ts';
 import QA from '@/QA.json';
-import CreditCardPopup from "@/components/creditCardPopup.vue";
-import {store} from "@/store";
+import CreditCardPopup from '@/components/creditCardPopup.vue';
+import {store} from '@/store';
 
 const msgData = ref([]);
 
@@ -57,7 +57,7 @@ const sendQuestion = (question: string) => {
   });
   handleAnswerJson(answerJson);
   if (question === 'otherInstallmentPlans') {
-    //信用卡弹出层
+    // 信用卡弹出层
     openPopup('creditCard');
   }
 };
@@ -100,7 +100,7 @@ const handleAnswerJsonTalk = (index: number) => {
     } else {
       // 模仿 demoTalkTree 格式
       msgData.value.push(Object.assign({
-        jsonStringify: JSON.stringify(answerJsonTalk.value[index]),//仅用于 findIndex
+        jsonStringify: JSON.stringify(answerJsonTalk.value[index]), // 仅用于 findIndex
         title: answerJsonTalk.value[index].title,
         btn: answerJsonTalk.value[index].btn
       }, answerJsonTalk.value[index].msg ? {msg: replaceMsg(answerJsonTalk.value[index].msg)} : {}));
@@ -131,7 +131,7 @@ const replaceMsg = (msg: string) => {
 };
 
 const talkBox = ref();
-const findIndex = ref(null);//实际上最多找到1个
+const findIndex = ref(null);// 实际上最多找到1个
 const reply = (reply: { title: string; vdid: string; msg: string; btn: never; }) => {
   let temp = {msg: reply.msg, vdid: reply.vdid};
   if (reply.title) {
@@ -161,7 +161,7 @@ const reply = (reply: { title: string; vdid: string; msg: string; btn: never; })
   });
 };
 
-//滚动条至此
+// 滚动条至此
 const scrollBarTo = (offsetTop: number) => {
   talkBox.value.scrollTop = offsetTop;
 };
@@ -183,10 +183,10 @@ const emits = defineEmits([
   'stopAllVideo',
 ]);
 
-//本地播放
+// 本地播放
 const localPlay = (vdid: string) => {
   console.log('开始播放视频:', vdid);
-  emits("stopAllVideo");
+  emits('stopAllVideo');
   console.log('ctx1', ctx1.value, 'ctx3', ctx3.value);
   if (ctx1.value) {
     ctx1.value = '';
@@ -200,7 +200,7 @@ const localPlay = (vdid: string) => {
   var playPromise = video.value.play();
   console.log('playPromise', playPromise);
   if (playPromise !== undefined) {
-    //注意用then回调
+    // 注意用then回调
     playPromise.then(() => {
       ctx1.value = (document.getElementById('c1')).getContext('2d');
       ctx3.value = (document.getElementById('c3')).getContext('2d');
@@ -222,7 +222,7 @@ const render = () => {
 };
 
 const computeFrame = () => {
-  //console.log('ctx1', ctx1.value, 'ctx3', ctx3.value);
+  // console.log('ctx1', ctx1.value, 'ctx3', ctx3.value);
   ctx1.value.drawImage(video.value, 0, 0, picturewidth.value, pictureheight.value);
   let frame = ctx1.value.getImageData((video.value.videoWidth / 1920 * props.bodyheight - props.bodywidth) / 2, 0, picturewidth.value, pictureheight.value);
   let l = frame.data.length / 4;
@@ -230,13 +230,13 @@ const computeFrame = () => {
     let r = frame.data[i * 4 + 0];
     let g = frame.data[i * 4 + 1];
     let b = frame.data[i * 4 + 2];
-    //rgb(8 204 4)
+    // rgb(8 204 4)
     if (r < 150 && g > 140 && b < 150) {
       frame.data[i * 4 + 3] = 0;
     }
   }
   ctx3.value.putImageData(frame, 0, 0);
-}
+};
 
 defineExpose({
   localPlay,

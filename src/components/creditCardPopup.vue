@@ -108,14 +108,14 @@
 </template>
 
 <script lang="ts" setup>
-import {defineEmits, ref} from "vue";
+import {defineEmits, ref} from 'vue';
 
-const emit = defineEmits(["closePopup", "inputFocus", "noChecked", "isChecked", "confirmHandle"]);
+const emit = defineEmits(['closePopup', 'inputFocus', 'noChecked', 'isChecked', 'confirmHandle']);
 const closePopup = () => {
-  emit("closePopup");
+  emit('closePopup');
 };
 const inputFocus = () => {
-  emit("inputFocus");
+  emit('inputFocus');
 };
 const showPeriodBox = ref(false);
 const showTermBox = ref(false);
@@ -125,13 +125,13 @@ const showAllCardBox = ref(false);
 const handle = () => {
   if (checked.value) {
     showConfirm.value = true;
-    emit("isChecked");
+    emit('isChecked');
   } else {
-    emit("noChecked");
+    emit('noChecked');
   }
 };
 const confirmHandle = () => {
-  emit("confirmHandle");
+  emit('confirmHandle');
 };
 const selectPeriod = () => {
   if (!showConfirm.value) {

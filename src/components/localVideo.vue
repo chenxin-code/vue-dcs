@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, defineEmits, defineExpose} from "vue";
+import {ref, defineEmits, defineExpose} from 'vue';
 
 const videos = ref([
   {id: 'sp1', name: 'sp1'},

@@ -11,11 +11,11 @@
 </template>
 
 <script lang="ts" setup>
-import {defineEmits} from "vue";
+import {defineEmits} from 'vue';
 
-const emit = defineEmits(["enter"]);
+const emit = defineEmits(['enter']);
 const enter = () => {
-  emit("enter");
+  emit('enter');
 };
 </script>
 

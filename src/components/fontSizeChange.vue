@@ -18,15 +18,15 @@
 </template>
 
 <script lang="ts" setup>
-import {defineEmits, onMounted, ref} from "vue";
+import {defineEmits, onMounted, ref} from 'vue';
 
-const choseList = ref(["小号", "标准", "大号"]);
-const selectedStandard = ref("标准");
+const choseList = ref(['小号', '标准', '大号']);
+const selectedStandard = ref('标准');
 const u = navigator.userAgent;
 const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
 onMounted(() => {
-  if (localStorage.getItem("baseSize")) {
-    changeSize(localStorage.getItem("baseSize"));
+  if (localStorage.getItem('baseSize')) {
+    changeSize(localStorage.getItem('baseSize'));
   } else {
     changeSize('标准');
   }
@@ -34,27 +34,27 @@ onMounted(() => {
 const changeSize = (str: string) => {
   selectedStandard.value = str;
   switch (str) {
-    case "小号":
+    case '小号':
       if (isiOS) {
-        document.getElementsByTagName("html")[0].style.fontSize = "16px";
+        document.getElementsByTagName('html')[0].style.fontSize = '16px';
       } else {
-        document.getElementsByTagName("html")[0].style.fontSize = "14px";
+        document.getElementsByTagName('html')[0].style.fontSize = '14px';
       }
       localStorage.setItem('baseSize', '小号');
       break;
-    case "标准":
+    case '标准':
       if (isiOS) {
-        document.getElementsByTagName("html")[0].style.fontSize = "18px";
+        document.getElementsByTagName('html')[0].style.fontSize = '18px';
       } else {
-        document.getElementsByTagName("html")[0].style.fontSize = "16px";
+        document.getElementsByTagName('html')[0].style.fontSize = '16px';
       }
       localStorage.setItem('baseSize', '标准');
       break;
-    case "大号":
+    case '大号':
       if (isiOS) {
-        document.getElementsByTagName("html")[0].style.fontSize = "24px";
+        document.getElementsByTagName('html')[0].style.fontSize = '24px';
       } else {
-        document.getElementsByTagName("html")[0].style.fontSize = "22px";
+        document.getElementsByTagName('html')[0].style.fontSize = '22px';
       }
       localStorage.setItem('baseSize', '大号');
       break;
@@ -62,9 +62,9 @@ const changeSize = (str: string) => {
       break;
   }
 };
-const emit = defineEmits(["close"]);
+const emit = defineEmits(['close']);
 const closeWindow = () => {
-  emit("close");
+  emit('close');
 };
 
 </script>

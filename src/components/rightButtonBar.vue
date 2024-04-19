@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import {defineEmits, defineProps} from "vue";
+import {defineEmits, defineProps} from 'vue';
 
 interface Inprops {
   muted: boolean
@@ -21,11 +21,11 @@ interface Inprops {
 
 const props = defineProps<Inprops>();
 const changeMuted = () => {
-  emit("changeMuted");
+  emit('changeMuted');
 };
-const emit = defineEmits(["changeMuted", "showChangeSize"]);
+const emit = defineEmits(['changeMuted', 'showChangeSize']);
 const showChangeSize = () => {
-  emit("showChangeSize");
+  emit('showChangeSize');
 };
 </script>
 
