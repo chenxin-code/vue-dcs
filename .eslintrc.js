@@ -46,5 +46,6 @@ module.exports = {
     'array-bracket-spacing': ['warn', 'never'],
     // 为块强制执行一致的大括号样式
     'brace-style': ['warn', '1tbs', {allowSingleLine: true}],
+    '@typescript-eslint/no-var-requires': 'off',
   }
 }
