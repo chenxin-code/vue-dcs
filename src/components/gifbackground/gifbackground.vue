@@ -1,31 +1,15 @@
 <template>
   <div class="gifWindow" :style="{height:gifWindowheight+'px'}">
-<!--    <div class="runninglogo">
-      <img class="runningImg" id="runningImg" src="@/assets/img/logo-move.png" alt=""/>
-    </div>-->
   </div>
 </template>
 
 <script lang="ts" setup>
 import {ref, onMounted} from "vue";
 
-//const logodom = ref();
 const gifWindowheight = ref(0);
-
 onMounted(() => {
   gifWindowheight.value = document.body.clientHeight;
-  // logodom.value = document.getElementById('runningImg');
-  // let num = 0;
-  // setInterval(() => {
-  //   if (num < -2700) {
-  //     num = 0;
-  //   } else {
-  //     num = num - 100;
-  //   }
-  //   logodom.value.style.top = num + '%';
-  // }, 3400 / 29);
 });
-
 </script>
 
 <style lang="less">
@@ -39,33 +23,6 @@ onMounted(() => {
   background: url(./../../assets/img/runningbackground.jpg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
-
-  .runninglogo {
-    position: absolute;
-    left: 0;
-    top: 11.3%;
-    width: 100%;
-    height: calc(100vw / 1080 * 260);
-    overflow: hidden;
-
-    .runningImg {
-      position: relative;
-      width: 100%;
-      object-fit: cover;
-      top: 0;
-      // animation: upward 1s linear infinite;
-    }
-
-    @keyframes upward {
-      from {
-        top: 0;
-      }
-      to {
-        top: -2900%;
-      }
-    }
-  }
-
 }
 
 @media screen and (min-width: 600px) {
